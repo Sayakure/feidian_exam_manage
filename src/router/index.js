@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import modifyTest from './modules/modifyTest'
 import showTest from './modules/showTest'
 import stuTest from './modules/stuTest'
+import goTest from './modules/goTest'
 
 Vue.use(Router)
 
@@ -55,7 +56,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '主页', icon: 'dashboard' }
     }]
   },
   { path: '*', redirect: '/404', hidden: true }
@@ -65,7 +66,8 @@ export const constantRoutes = [
 export const asyncRoutes = [
   modifyTest,
   showTest,
-  stuTest
+  stuTest,
+  goTest
 ]
 
 const createRouter = () => new Router({

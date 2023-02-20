@@ -19,7 +19,16 @@
 </template>
 
 <script>
+// import { getTests } from '@/api/test'
 export default {
+  data() {
+    return {
+      tests: {}
+    }
+  },
+  created() {
+    this.getTests()
+  },
   methods: {
     // props: {
     //   test: {
@@ -27,6 +36,10 @@ export default {
     //     required: true
     //   }
     // },
+    getTests() {
+      // let res = await getTests()
+      console.log('获取试题')
+    },
     operateTests(type) {
       if (type === 'edit') {
         // 编辑
@@ -52,6 +65,5 @@ export default {
 .item {
     margin: 5px 0;
     padding: 15px 0;
-    background-color: pink;
 }
 </style>

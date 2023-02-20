@@ -1,16 +1,17 @@
 <template>
   <div class="dashboard-container">
     <div class="app-container">
-      <h2>
-        展示考试信息
-      </h2>
+      <PersonalInfo />
+      <TestInfo />
     </div>
   </div>
 </template>
 
 <script>
+import PersonalInfo from './components/personal-info.vue'
+import TestInfo from './components/testInfo.vue'
 export default {
-
+  components: { PersonalInfo, TestInfo }
 }
 </script>
 

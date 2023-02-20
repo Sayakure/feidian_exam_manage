@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="修改个人信息" :visible="showDialog" @close="btnCancel">
+  <el-dialog title="修改个人信息" style="width: 400px" :visible="showDialog" @close="btnCancel">
     <el-form ref="infoForm" :model="infoData" label-width="120px" :rules="rules">
       <el-form-item label="姓名" prop="name">
         <el-input v-model="infoData.name" style="width:80%" placeholder="姓名长度为1-10个字符" />

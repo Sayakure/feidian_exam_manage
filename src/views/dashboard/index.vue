@@ -13,7 +13,7 @@
           <el-row type="flex" justify="space-between">
             <el-col>
               <div v-for="(item, index) in describe" :key="index" class="describe" style="height: 50px;line-height: 50px;">
-                {{ item }}
+                {{ item }}:
               </div>
             </el-col>
             <el-col>

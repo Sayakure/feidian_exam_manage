@@ -4,7 +4,6 @@
       <el-card>
         <div slot="header" class="card-title" justify="space-between">
           <div class="title" style="font-size: 28px;">试题</div>
-          <button @click="editTest()">测试</button>
           <el-button style="float: right;margin-top: -33px;" type="primary" @click="addTest()">增加试题</el-button>
         </div>
         <TestTools v-for="i in 10" :key="i" @editTest="editTest()" />

@@ -1,16 +1,15 @@
 <template>
   <div class="dashboard-container">
     <div class="app-container">
-      <h2>
-        学生考试
-      </h2>
+      <TestInfo />
     </div>
   </div>
 </template>
 
 <script>
+import TestInfo from './components/test-info.vue'
 export default {
-
+  components: { TestInfo }
 }
 </script>
 
