@@ -1,20 +1,63 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+    <el-form ref="assignForm" :model="assignForm" :rules="assignRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">
-          在线考试管理系统
+          欢迎注册
         </h3>
       </div>
 
-      <el-form-item prop="mobile">
+      <!-- 姓名 -->
+      <el-form-item prop="name">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          ref="name"
+          v-model="assignForm.name"
+          placeholder="请输入姓名"
+          name="name"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
+      </el-form-item>
+
+      <!-- 学院 -->
+      <el-form-item prop="college">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="college"
+          v-model="assignForm.college"
+          placeholder="请输入所在学院"
+          name="college"
+          tabindex="2"
+          auto-complete="on"
+        />
+      </el-form-item>
+
+      <!-- 性别 -->
+      <el-form-item prop="sex">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-select v-model="assignForm.sex" style="width:80%" placeholder="请选择性别">
+          <el-option value="男" label="男" />
+          <el-option value="女" label="女" />
+        </el-select>
+      </el-form-item>
+
+      <!-- 手机号 -->
+      <el-form-item prop="phonenumber">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.mobile"
+          ref="phonenumber"
+          v-model="assignForm.phonenumber"
           placeholder="请输入手机号"
           type="text"
           tabindex="1"
@@ -22,6 +65,7 @@
         />
       </el-form-item>
 
+      <!-- 密码 -->
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -29,7 +73,7 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="assignForm.password"
           :type="passwordType"
           placeholder="请输入密码"
           name="password"
@@ -42,18 +86,48 @@
         </span>
       </el-form-item>
 
+      <!-- 确认密码 -->
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input
+          :key="passwordType"
+          ref="repeatPassword"
+          v-model="repeatPassword"
+          :type="passwordType"
+          placeholder="请再次输入密码"
+          name="repeatPassword"
+          tabindex="2"
+          auto-complete="on"
+          @keyup.enter.native="handleLogin"
+        />
+      </el-form-item>
+
+      <!-- 老师的验证码 -->
+      <el-form-item prop="captcha">
+        <span class="svg-container">
+          <svg-icon icon-class="user" />
+        </span>
+        <el-input
+          ref="captcha"
+          v-model="assignForm.captcha"
+          placeholder="如果注册为老师，请输入验证码"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
+      </el-form-item>
+
       <el-button
         class="loginBtn"
         :loading="loading"
         type="primary"
         style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin"
+        @click.native.prevent="handleRegister"
       >登录</el-button>
 
       <div class="tips">
-        <router-link to="/assign">
-          <span class="assign">还没有账号？去注册 <i class="el-icon-right" /></span>
-        </router-link>
         <span style="margin-right:20px;">账号: 13800000002</span>
         <span> 密码: 123456</span>
       </div>
@@ -63,6 +137,7 @@
 </template>
 
 <script>
+import { register } from '@/api/user'
 import { validMobile } from '@/utils/validate'
 import { mapActions } from 'vuex'
 export default {
@@ -78,17 +153,22 @@ export default {
     // value => callback  callback(new Error())
 
     return {
-      loginForm: {
-        mobile: '13800000002',
-        password: '123456'
+      repeatPassword: '',
+      assignForm: {
+        name: '',
+        sex: '',
+        phonenumber: '',
+        college: '',
+        captcha: '',
+        password: ''
       },
-      loginRules: {
-        mobile: [{ required: true, trigger: 'blur', message: '请输入手机号' }, {
+      assignRules: {
+        name: [{ required: true, trigger: 'blur', message: '姓名不能为空' }, { min: 1, max: 15, message: '姓名为1-15长度的字符' }],
+        phonenumber: [{ required: true, trigger: 'blur', message: '手机号不能为空' }, {
           trigger: 'blur',
           validator: validateMobile// 校验手机号
         }],
-        // 校验规则
-        // min   max  校验的字符串 指的是长度 校验的是数字 校验的大小
+        college: [{ required: true, trigger: 'blur', message: '所在学院不能为空' }, { min: 1, max: 15, message: '所在学院为1-15长度的字符' }],
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
           min: 6, max: 16, message: '密码长度在6-16位之间', trigger: 'blur'
         }]
@@ -119,9 +199,11 @@ export default {
       })
     },
     // 登录
-    handleLogin() {
-      this.$refs.loginForm.validate(async isOK => {
+    handleRegister() {
+      this.$refs.assignForm.validate(async isOK => {
         if (isOK) {
+          // 发送数据
+          register(this.assignForm)
           // 表示校验通过
           this.loading = true
           try {
@@ -146,12 +228,15 @@ export default {
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
-$light_white: #313030;
+$light_white: #393434;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
+    &::placeholder {
+      color: #999;
+    }
   }
 }
 
@@ -194,7 +279,9 @@ $cursor: #fff;
   line-height: 32px;
   font-size: 24px;
 }
-
+// ::deep .login-form {
+//       padding: 70px 35px;
+// }
 }
 </style>
 

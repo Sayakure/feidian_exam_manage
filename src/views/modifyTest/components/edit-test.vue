@@ -1,23 +1,11 @@
 <template>
   <el-dialog title="编辑试题" :visible="editDialog" @close="btnCancel">
-    <el-form ref="testForm" :model="testData" label-width="120px" :rules="rules">
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="testData.name" style="width:80%" placeholder="姓名长度为1-10个字符" />
+    <el-form ref="editForm" :model="addData" label-width="120px" :rules="rules">
+      <el-form-item label="题目描述" prop="describe">
+        <el-input v-model="addData.describe" style="width:80%" placeholder="请填入题目简述" />
       </el-form-item>
-      <el-form-item label="性别" prop="gender">
-        <el-select v-model="testData.gender" style="width: 80%;" placeholder="请选择性别">
-          <el-option label="男" value="male" />
-          <el-option label="女" value="female" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="testData.mobile" style="width:80%" />
-      </el-form-item>
-      <el-form-item label="工号" prop="id">
-        <el-input v-model="testData.id" style="width:80%" />
-      </el-form-item>
-      <el-form-item label="所在学院" prop="college">
-        <el-input v-model="testData.college" style="width:80%" />
+      <el-form-item label="题目详情" prop="info">
+        <el-input v-model="addData.info" type="textarea" :rows="12" style="width:90%" />
       </el-form-item>
     </el-form>
     <!-- 放置居中的按钮 -->
@@ -40,31 +28,15 @@ export default {
     }
   },
   data() {
-    const checkMobile = async(rule, value, callback) => {
-      const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-      const isRight = await reg.test(value)
-      if (isRight) {
-        callback()
-      } else {
-        callback(new Error('请输入正确的手机号'))
-      }
-    }
     return {
-      testData: {
-        name: '',
-        gender: '',
-        mobile: '',
+      addData: {
         id: '',
-        college: ''
+        describe: '',
+        info: ''
       },
       rules: {
-        name: [{ required: true, message: '姓名不能为空', trigger: 'blur' }, { min: 1, max: 10, message: '姓名长度为1-10个字符', trigger: blur }],
-        mobile: [{ required: true, message: '手机号不能为空', trigger: 'blur' }, {
-          trigger: 'blur',
-          validator: checkMobile
-        }],
-        id: [{ required: true, message: '工号不能为空', trigger: 'blur' }],
-        college: [{ required: true, message: '所在学院不能为空', trigger: 'blur' }]
+        describe: [{ required: true, message: '题目简述不能为空', trigger: 'blur' }, { min: 1, max: 300, message: '题目简述为1-300个字符', trigger: blur }],
+        info: [{ required: true, message: '题目不能为空', trigger: 'blur' }, { min: 1, max: 1000, message: '题目主体不能超过1000个字符', trigger: blur }]
       }
     }
   },
@@ -77,12 +49,11 @@ export default {
         id: '',
         college: ''
       }
-      this.$refs.testForm.resetFields() // 重置方法
+      this.$refs.editForm.resetFields() // 重置方法
       this.$emit('update:editDialog', false)
     },
     btnOK() {
-      console.log(this.$refs.testForm.validate())
-      this.$refs.testForm.validate().then(res => {
+      this.$refs.editForm.validate().then(res => {
         console.log('res', res)
         if (res) {
           // updateTest(this.testData)

@@ -5,6 +5,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+import Components from '@/components'
 
 import '@/styles/index.scss' // global css
 
@@ -26,6 +27,7 @@ import '@/permission' // permission control
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
+Vue.use(Components) // 注册自己的自定义组件
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 Object.keys(directives).forEach(key => {

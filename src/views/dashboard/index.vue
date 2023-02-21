@@ -4,8 +4,9 @@
       <el-row type="flex" justify="space-between" style="width:100%">
         <el-col>
           <div class="avatar">
-            <img src="@/assets/common/img.jpeg" alt="">
-            <el-button type="primary" size="small" style="margin-left: 50px;" @click.native="editInfo()">修改个人信息</el-button>
+            <ImageUpload ref="staffPhoto" />
+            <!-- <img src="@/assets/common/img.jpeg" alt=""> -->
+            <el-button type="primary" size="small" style="margin-left: 18px; margin-top: 58px" @click.native="editInfo()">修改个人信息</el-button>
           </div>
         </el-col>
         <el-col style="min-width: 500px">
@@ -27,15 +28,17 @@
       </el-row>
     </el-card>
     <EditInfo :show-dialog.sync="showDialog" />
+    <ExamCalender />
   </div>
 </template>
 
 <script>
+import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
 import store from '@/store'
 export default {
   name: 'Dashboard',
-  components: { EditInfo },
+  components: { EditInfo, ExamCalender },
   data() {
     return {
       showDialog: false,
@@ -64,7 +67,11 @@ export default {
   methods: {
     getInfo() {
       this.info.name = store.state.user.userInfo.id
-      console.log(store.state.user.userInfo)
+      // if (store.state.user.userInfo.staffPhoto)
+      //   // this.$refs.staffPhoto.fileList = [{ url: store.state.user.userInfo.staffPhoto, upload: true }]
+      // } else {
+      //   console.log(1)
+      // }
     },
     changeDescribe(role) {
       if (role === 'teacher') {

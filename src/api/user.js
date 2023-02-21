@@ -1,11 +1,21 @@
 import request from '@/utils/request'
 
+// 注册
+export function register(data) {
+  return request({
+    url: '/register',
+    method: 'post',
+    data
+  })
+}
+
 export function login(data) {
   // 返回了promise对象
   return request({
+    // url: '/login',
     url: '/sys/login',
     method: 'post',
-    data // body参数体位于data
+    data
   })
 }
 export function getUserInfo() {

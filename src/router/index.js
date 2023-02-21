@@ -42,7 +42,11 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
+  {
+    path: '/assign',
+    component: () => import('@/views/assign/index.vue'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),

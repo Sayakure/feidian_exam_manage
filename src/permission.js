@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 前置守卫
-const whileList = ['/login', '/404']
+const whileList = ['/login', '/404', '/assign']
 router.beforeEach(async(to, from, next) => {
   NProgress.start() // 开启进度条
   // next是一个必须执行的钩子 不执行就卡主了
