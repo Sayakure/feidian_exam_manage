@@ -15,6 +15,7 @@ router.beforeEach(async(to, from, next) => {
       // 在vuex中没有用户资料才需要获取用户信息
       if (!store.getters.userId) {
         await store.dispatch('user/getUserInfo')
+        // console.log(store.dispatch('user/getUserInfo'))
         // const result =
         // const routes = await store.dispatch('permission/filterRoutes', result.roles.menu)
         // console.log(routes, 111)

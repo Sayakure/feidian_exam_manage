@@ -1,7 +1,8 @@
 <template>
   <div class="dashboard-container">
-    <el-card>
-      <el-row type="flex" justify="space-between" style="width:100%">
+    <Test />
+    <el-card style="padding: 20px 0">
+      <el-row type="flex" justify="space-between" style="width:80%;padding-top: 15px;">
         <el-col>
           <div class="avatar">
             <ImageUpload ref="staffPhoto" />
@@ -12,16 +13,18 @@
         <el-col style="min-width: 500px">
           <el-row type="flex" justify="space-between">
             <el-col>
-              <div v-for="(item, index) in describe" :key="index" class="describe" style="height: 50px;line-height: 50px;">
-                {{ item }}:
-              </div>
+              <div class="describe">姓名：</div>
+              <div class="describe">性别：</div>
+              <div class="describe">ID:</div>
+              <div class="describe">所在学院：</div>
+              <div class="describe">手机号：</div>
             </el-col>
             <el-col>
-              <el-col>
-                <div v-for="(item, index) in info" :key="index" class="info" style="height: 50px;line-height: 50px;">
-                  {{ info.name }}
-                </div>
-              </el-col>
+              <div class="describe">{{ info.name }}</div>
+              <div class="describe">{{ info.gender }}</div>
+              <div class="describe">{{ info.id }}</div>
+              <div class="describe">{{ info.college }}</div>
+              <div class="describe">{{ info.mobile }}</div>
             </el-col>
           </el-row>
         </el-col>
@@ -33,36 +36,27 @@
 </template>
 
 <script>
+import Test from './components/test.vue'
 import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
 import store from '@/store'
 export default {
   name: 'Dashboard',
-  components: { EditInfo, ExamCalender },
+  components: { EditInfo, ExamCalender, Test },
   data() {
     return {
       showDialog: false,
-      describe: {
-        name: '姓名',
-        gender: '性别',
-        mobile: '手机号',
-        college: '所在学院',
-        id: '',
-        subject: ''
-      },
       info: {
-        name: '',
+        name: '1',
         gender: '2',
-        mobile: '',
-        college: '',
-        id: '',
-        subject: ''
+        id: '3',
+        college: '4',
+        mobile: '5'
       }
     }
   },
   created() {
     this.getInfo()
-    this.changeDescribe('teacher')
   },
   methods: {
     getInfo() {
@@ -72,15 +66,6 @@ export default {
       // } else {
       //   console.log(1)
       // }
-    },
-    changeDescribe(role) {
-      if (role === 'teacher') {
-        this.describe.id = '工号'
-        this.describe.subject = '教授学科'
-      } else {
-        this.describe.id = '学号'
-        this.describe.subject = '所选学科'
-      }
     },
     editInfo() {
       this.showDialog = true
@@ -109,6 +94,7 @@ export default {
   }
 }
 .describe {
-  font-size: 20px;
+  font-size: 18px;
+  margin-bottom: 8px;
 }
 </style>

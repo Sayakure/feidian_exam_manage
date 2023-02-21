@@ -1,27 +1,28 @@
 <template>
-  <div>
-    <el-row type="flex" justify="end">
-      <el-select v-model="currentYear" size="small" style="width: 120px" @change="dataChage">
-        <el-option v-for="item in yearList" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-select v-model="currentMonth" size="small" style="width: 120px;margin-left:10px" @change="dataChage">
-        <el-option v-for="item in 12" :key="item" :label="item" :value="item" />
-      </el-select>
-    </el-row>
-    <!-- 放置日历组件 -->
-    <el-calendar v-model="currentDate">
-      <!-- 插槽内容 -->
-      <!-- <template slot="dateCell">123 </template> -->
-      <!-- <template v-slot:dateCell>123 </template> -->
-      <template #dateCell="{ date, data }">
-        <div class="date-content">
-          <span class="text">{{ data.day | getDay }}</span>
-          <span v-if="isWeek(date)" class="rest">休</span>
-        </div>
-      </template>
-    </el-calendar>
-
-  </div>
+  <el-card class="calender">
+    <div>
+      <el-row type="flex" justify="end">
+        <el-select v-model="currentYear" size="small" style="width: 120px" @change="dataChage">
+          <el-option v-for="item in yearList" :key="item" :label="item" :value="item" />
+        </el-select>
+        <el-select v-model="currentMonth" size="small" style="width: 120px;margin-left:10px" @change="dataChage">
+          <el-option v-for="item in 12" :key="item" :label="item" :value="item" />
+        </el-select>
+      </el-row>
+      <!-- 放置日历组件 -->
+      <el-calendar v-model="currentDate">
+        <!-- 插槽内容 -->
+        <!-- <template slot="dateCell">123 </template> -->
+        <!-- <template v-slot:dateCell>123 </template> -->
+        <template #dateCell="{ date, data }">
+          <div class="date-content">
+            <span class="text">{{ data.day | getDay }}</span>
+            <span v-if="isWeek(date)" class="rest">休</span>
+          </div>
+        </template>
+      </el-calendar>
+    </div>
+  </el-card>
 </template>
 
 <script>
@@ -68,12 +69,19 @@ export default {
 </script>
 
 <style scoped>
-/* //  /deep/.el-calendar-day {
-//   height:  auto;
-//  }
-//  /deep/ .el-calendar-table__row td,/deep/ .el-calendar-table tr td:first-child,  /deep/ .el-calendar-table__row td.prev{
-//   border:none;
-//  } */
+:deep .el-calendar-day {
+height:  auto;
+}
+:deep .el-calendar-table__row td,:deep .el-calendar-table tr td:first-child,
+:deep .el-calendar-table__row td.prev{
+border:none;
+}
+.calender {
+  width: 40%;
+  margin-top: 40px;
+  min-width: 500px;
+  height: 600px;
+}
 .date-content {
   height: 40px;
   text-align: center;

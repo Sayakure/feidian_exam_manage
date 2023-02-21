@@ -1,18 +1,48 @@
 import request from '@/utils/request'
 
+/**
+ *  下边的是新api
+ */
 // 注册
-export function register(data) {
-  return request({
-    url: '/register',
-    method: 'post',
-    data
-  })
-}
+// export function register(data) {
+//   return request({
+//     url: '/register',
+//     method: 'post',
+//     data
+//   })
+// }
+// // 登录
+// export function login(data) {
+//   return request({
+//     url: '/login',
+//     method: 'post'
+//     data
+//   })
+// }
+// 获取权限路由
+// export function getPermissionRouter() {
+//   return request({
+//     url: '/getRouters'
+//   })
+// }
+// 获取用户信息
+// export function getUserInfo() {
+//   return request({
+//     url: '/info',
+//     method: 'post'
+//   })
+// }
+// 退出登录
+// export function logout() {
+// return request({
+//     url: '/info',
+//     method: 'post'
+//   })
+// }
 
 export function login(data) {
   // 返回了promise对象
   return request({
-    // url: '/login',
     url: '/sys/login',
     method: 'post',
     data
@@ -34,6 +64,3 @@ export function getUserDetailById(id) {
   })
 }
 
-export function logout() {
-
-}
