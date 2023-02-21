@@ -19,6 +19,7 @@ service.interceptors.request.use(config => {
       router.push('/login')
       return Promise.reject(new Error('token超时了'))
     }
+    // 记住要把BEarer给删了
     config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
@@ -29,6 +30,8 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   // 成功执行
   // axios默认加了一层data的包裹
+
+  // success 变成code了，一会要查 数据结构也不一样，要改
   const { success, message, data } = response.data
   if (success) {
     return data
@@ -38,7 +41,8 @@ service.interceptors.response.use(response => {
   }
 }, error => {
   // 后端告诉是否超时
-  if (error.response && error.response.data && error.respinse.data.code === 10002) {
+  // 后端的码是否是10002
+  if (error.response && error.response.data && error.response.data.code === 10002) {
     store.dispatch('user/logout')
     router.push('/login')
   } else {

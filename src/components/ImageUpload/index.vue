@@ -1,5 +1,8 @@
 <template>
+  <!-- 上传组件 -->
   <div>
+    <!-- :class="{ class名称：布尔值 }" -->
+    <!-- el-upload之所以能够显示图片 是因为 fileList中有值 -->
     <el-upload
       list-type="picture-card"
       :file-list="fileList"
@@ -13,6 +16,7 @@
     >
       <i class="el-icon-plus" />
     </el-upload>
+    <el-progress v-if="showPercent" :percentage="percent" style="width: 180px" />
 
     <!-- 预览图片 -->
     <el-dialog :visible.sync="showDialog" title="图片预览">
@@ -25,8 +29,8 @@
 <script>
 import COS from 'cos-js-sdk-v5'
 const cos = new COS({
-  SecretId: 'AKID0mqfEWqlUzIbeSkGRL6c7ML6c0B93To9', // 身份识别 ID
-  SecretKey: 'JFwNZdeRF2iOp03FFsGNDm44vWFitmNF' // 身份密钥
+  SecretId: 'AKIDCsTsBHApGYecQBqThokU2SgjZGpBNOEs', // 身份识别 ID
+  SecretKey: 'W1Oeo3IPSJ2ILAHDvPcmndGj3A6vcCd6' // 身份密钥
 })
 export default {
   props: {
@@ -37,6 +41,7 @@ export default {
   },
   data() {
     return {
+      showPercent: false, // 控制进度条的显示和隐藏
       percent: 0, // 当前的进度
       showDialog: false, // 默认隐藏
       imgUrl: '',
@@ -50,14 +55,15 @@ export default {
     }
   },
   methods: {
-    // 预览
     preview(file) {
       this.imgUrl = file.url
       this.showDialog = true
     },
-    // 删除
+    // file就是要删除的file
     handleRemove(file) {
+      // 根据file中uid将当前的fileList中的数据进行移除
       this.fileList = this.fileList.filter(item => item.uid !== file.uid)
+      // filter方法会得到一个新的数组
     },
     // 不能够一味 的进行push 因为该函数会被多次调用 fileList其实就是当前最新的文件列表
     changeFile(file, fileList) {
@@ -86,11 +92,12 @@ export default {
     // 自定义上传动作
     upload(params) {
       // params中的file就是要上传的图片文件
+    //   console.log(params.file)
       if (params.file) {
         this.showPercent = true // 显示进度条
         //   上传对象到腾讯云
         cos.putObject({
-          Bucket: 'shuiruohanyu-1302806742', /* 每个人的存储桶名称 */
+          Bucket: 'feidiantestmange-1316948527', /* 每个人的存储桶名称 */
           Region: 'ap-nanjing', /* 存储桶所在地域，必须字段 */
           Key: params.file.name, /* 文件名称 */
           StorageClass: 'STANDARD', // 固定值
@@ -115,6 +122,7 @@ export default {
               }
               return item
             })
+            this.showPercent = false // 关闭进度条
             this.percent = 0 // 将进度归0
           }
         })

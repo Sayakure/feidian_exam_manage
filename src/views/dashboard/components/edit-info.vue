@@ -6,15 +6,12 @@
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-select v-model="infoData.gender" style="width: 80%;" placeholder="请选择性别">
-          <el-option label="男" value="male" />
-          <el-option label="女" value="female" />
+          <el-option label="男" value="男" />
+          <el-option label="女" value="女" />
         </el-select>
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
         <el-input v-model="infoData.mobile" style="width:80%" />
-      </el-form-item>
-      <el-form-item label="工号" prop="id">
-        <el-input v-model="infoData.id" style="width:80%" />
       </el-form-item>
       <el-form-item label="所在学院" prop="college">
         <el-input v-model="infoData.college" style="width:80%" />
@@ -32,7 +29,7 @@
 </template>
 
 <script>
-import { setUserInfo } from '@/api/user'
+// import { setUserInfo } from '@/api/user'
 export default {
   props: {
     showDialog: {
@@ -51,7 +48,6 @@ export default {
         name: '',
         gender: '',
         mobile: '',
-        id: '',
         college: ''
       },
       rules: {
@@ -60,7 +56,6 @@ export default {
           trigger: 'blur',
           validator: checkMobile
         }],
-        id: [{ required: true, message: '工号不能为空', trigger: 'blur' }],
         college: [{ required: true, message: '所在学院不能为空', trigger: 'blur' }]
       }
     }
@@ -69,9 +64,8 @@ export default {
     btnCancel() {
       this.infoData = {
         name: '',
-        gender: '',
-        mobile: '',
-        id: '',
+        sex: '',
+        phonenumber: '',
         college: ''
       }
       this.$refs.infoForm.resetFields() // 重置方法
@@ -80,7 +74,8 @@ export default {
     btnOK() {
       // this.$emit('update:showDialog', false)
       this.$refs.infoForm.validate().then(() => {
-        setUserInfo(this.infoData)
+        // setUserInfo(this.infoData)
+        // 发请求
       }).then(() => {
         this.$emit('update:showDialog', false)
       })

@@ -15,6 +15,13 @@ router.beforeEach(async(to, from, next) => {
       // 在vuex中没有用户资料才需要获取用户信息
       if (!store.getters.userId) {
         await store.dispatch('user/getUserInfo')
+
+        // 底下的不知道是什么时候写的了，反正改成
+        // const routes = await store.dispatch('permission/filterRoutes', roles.menus)
+        // 此时得到的routes是当前用户的所拥有的的动态路由的权限
+        // router.addRoutes([...routes, { path: '*', redirect: '/404', hidden: true }])
+
+        
         // console.log(store.dispatch('user/getUserInfo'))
         // const result =
         // const routes = await store.dispatch('permission/filterRoutes', result.roles.menu)

@@ -1,5 +1,6 @@
 import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth'
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
+// import { getUserInfo } from '@/api/user'
 import { resetRouter } from '@/router'
 const state = {
   token: getToken(), // 设置token为共享
@@ -31,6 +32,12 @@ const actions = {
   },
   // 获取用户资料
   async getUserInfo(context) {
+    // 下面的两段都要删 改成
+    // const result = await getUserInfo()
+    // context.commit('setUserInfo', result)
+    // return result
+
+
     const result = await getUserInfo()
     // 用户的详情数据
     const baseInfo = await getUserDetailById(result.userId)

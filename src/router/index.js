@@ -7,8 +7,6 @@ import stuTest from './modules/stuTest'
 import goTest from './modules/goTest'
 import examTable from './modules/examTable'
 
-import exam from './modules/exam'
-import course from './modules/course'
 
 Vue.use(Router)
 
@@ -76,17 +74,10 @@ export const asyncRoutes = [
   showTest,
   stuTest,
   goTest,
-  examTable,
-  exam,
-  course
+  examTable
 ]
 
-// 动态路由
-// export const async = [
-//   course,
-//   exam
-// ]
-
+// 测试阶段才用的
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),

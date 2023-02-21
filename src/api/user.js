@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import postInfoVue from '@/views/dashboard/components/post-info.vue'
 
 /**
  *  下边的是新api
@@ -19,12 +20,14 @@ import request from '@/utils/request'
 //     data
 //   })
 // }
+
 // 获取权限路由
 // export function getPermissionRouter() {
 //   return request({
 //     url: '/getRouters'
 //   })
 // }
+
 // 获取用户信息
 // export function getUserInfo() {
 //   return request({
@@ -37,6 +40,13 @@ import request from '@/utils/request'
 // return request({
 //     url: '/info',
 //     method: 'post'
+//   })
+// }
+// 修改用户信息
+// export function setUserInfo() {
+//   return request({
+//     url: '/update',
+//     method: postInfoVue
 //   })
 // }
 

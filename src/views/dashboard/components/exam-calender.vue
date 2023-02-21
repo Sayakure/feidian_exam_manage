@@ -77,9 +77,9 @@ height:  auto;
 border:none;
 }
 .calender {
-  width: 40%;
-  margin-top: 40px;
   min-width: 500px;
+  max-width: 700px;
+  margin-top: 40px;
   height: 600px;
 }
 .date-content {

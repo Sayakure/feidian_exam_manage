@@ -1,4 +1,7 @@
 import { constantRoutes } from '@/router'
+// 请求权限
+// import { getPermissionRouter } from '@/api/user'
+
 // , asyncRoutes
 const state = {
   routes: constantRoutes
@@ -9,16 +12,16 @@ const mutations = {
   }
 }
 const actions = {
-  // 筛选权限路由
-  filterRoutes(context, menus) {
+  // 筛选权限路由也要改
+  // async filterRoutes(context) {
     // const routes = []
-    // console.log(menus)
+    // await menus = getPermissionRouter()
     // menus.forEach(key => {
     //   routes.push(...asyncRoutes.filter(item => item.name === key))
     // })
     // context.commit('setRoutes', routes)
     // return routes
-  }
+  // }
 }
 
 export default {
