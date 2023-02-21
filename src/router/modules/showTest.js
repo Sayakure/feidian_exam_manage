@@ -10,7 +10,7 @@ export default {
     name: 'showTest',
     meta: {
       title: '考试信息',
-      icon: 'tree'
+      icon: 'message'
     }
   }]
 }

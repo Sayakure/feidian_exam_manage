@@ -10,7 +10,7 @@ export default {
     name: 'stuTest',
     meta: {
       title: '学生考试',
-      icon: 'tree'
+      icon: 'education'
     }
   }]
 }

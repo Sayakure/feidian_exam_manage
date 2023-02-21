@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-container">
-    <PageTools />
     <el-card>
       <el-row type="flex" justify="space-between" style="width:100%">
         <el-col>
@@ -34,10 +33,9 @@
 <script>
 import EditInfo from './components/edit-info.vue'
 import store from '@/store'
-import PageTools from '@/components/PageTools'
 export default {
   name: 'Dashboard',
-  components: { PageTools, EditInfo },
+  components: { EditInfo },
   data() {
     return {
       showDialog: false,

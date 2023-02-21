@@ -7,6 +7,7 @@
           <!-- 前插槽 -->
           <slot name="before" />
         </div>
+        <span class="welcome">欢迎</span>
       </el-col>
       <el-col>
         <el-row type="flex" justify="end">
@@ -24,7 +25,7 @@
 export default {
   props: {
     showBefore: {
-      default: false,
+      default: true,
       type: Boolean
     }
   }

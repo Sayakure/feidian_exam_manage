@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
   props: {
     showDialog: {
@@ -24,8 +25,12 @@ export default {
       this.$emit('update:showDialog', false)
     },
     goTest() {
-      // 传递考试id
-      this.$emit('getTestId', 111)
+      this.$emit('getTestId')
+      const id = 111
+      // 请求考试信息
+      const routerUrl = router.resolve({ path: '/examTable', query: { id: JSON.stringify(id) }})
+      console.log(router.resolve)
+      window.open(routerUrl.href, '_blank')
     }
   }
 }

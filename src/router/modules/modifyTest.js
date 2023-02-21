@@ -10,7 +10,7 @@ export default {
     name: 'modifyTest',
     meta: {
       title: '修改试题',
-      icon: 'tree'
+      icon: 'edit'
     }
   }]
 }

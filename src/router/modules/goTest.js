@@ -10,7 +10,7 @@ export default {
     name: 'goTest',
     meta: {
       title: '进行考试',
-      icon: 'tree'
+      icon: 'skill'
     }
   }]
 }

@@ -14,18 +14,14 @@ export default {
   data() {
     return {
       showDialog: false,
-      showTestData: true,
-      showExam: false
+      showTestData: true
     }
   },
   methods: {
-    getTestId(id) {
+    getTestId() {
       // 清空桌面
       this.showTestData = false
       this.showDialog = false
-      // 请求考试信息
-      // console.log(id)
-      this.showExam = true
     }
   }
 }

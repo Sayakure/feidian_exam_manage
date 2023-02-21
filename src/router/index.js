@@ -5,6 +5,7 @@ import modifyTest from './modules/modifyTest'
 import showTest from './modules/showTest'
 import stuTest from './modules/stuTest'
 import goTest from './modules/goTest'
+import examTable from './modules/examTable'
 
 Vue.use(Router)
 
@@ -67,7 +68,8 @@ export const asyncRoutes = [
   modifyTest,
   showTest,
   stuTest,
-  goTest
+  goTest,
+  examTable
 ]
 
 const createRouter = () => new Router({

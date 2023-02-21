@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    showTest: {
+    showTestData: {
       type: Boolean,
       default: false
     }
