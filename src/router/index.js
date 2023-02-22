@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import modifyTest from './modules/modifyTest'
-import showTest from './modules/showTest'
-import stuTest from './modules/stuTest'
-import goTest from './modules/goTest'
-import examTable from './modules/examTable'
+// 动态路由的大菜单
+import allCourse from './modules/allCourse'
+import allExam from './modules/allExam'
+
+import teacherPublish from './modules/teaherPublish'
 
 
 Vue.use(Router)
@@ -70,18 +70,20 @@ export const constantRoutes = [
 
 // 动态路由
 export const asyncRoutes = [
-  modifyTest,
-  showTest,
-  stuTest,
-  goTest,
-  examTable
+  teacherPublish
+]
+
+//动态路由的menu总和
+export const asyncMenu = [
+  allCourse,
+  allExam
 ]
 
 // 测试阶段才用的
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes, ...asyncRoutes]
+  routes: [...constantRoutes, ...asyncMenu, ...asyncRoutes]
 })
 
 const router = createRouter()

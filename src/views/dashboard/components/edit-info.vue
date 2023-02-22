@@ -72,7 +72,6 @@ export default {
       this.$emit('update:showDialog', false)
     },
     btnOK() {
-      // this.$emit('update:showDialog', false)
       this.$refs.infoForm.validate().then(() => {
         // setUserInfo(this.infoData)
         // 发请求

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import postInfoVue from '@/views/dashboard/components/post-info.vue'
+import postInfoVue from '@/views/dashboard/components/helpers.vue'
 
 /**
  *  下边的是新api

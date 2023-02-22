@@ -4,6 +4,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 前置守卫
+// assign是register 当时脑子抽了没想起来这个词
 const whileList = ['/login', '/404', '/assign']
 router.beforeEach(async(to, from, next) => {
   NProgress.start() // 开启进度条

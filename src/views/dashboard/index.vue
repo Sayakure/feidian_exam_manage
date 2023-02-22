@@ -35,7 +35,7 @@
     <div class="others">
       <ExamCalender />
       <div class="small-items">
-        <PostInfo />
+        <Helpers />
         <EchartPersonal />
       </div>
     </div>
@@ -44,23 +44,25 @@
 
 <script>
 import EchartPersonal from './components/echart-personal.vue'
-import PostInfo from './components/post-info.vue'
+import Helpers from './components/helpers.vue'
 import Test from './components/test.vue'
 import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
 import store from '@/store'
 export default {
   name: 'Dashboard',
-  components: { EditInfo, ExamCalender, Test, PostInfo, EchartPersonal },
+  components: { EditInfo, ExamCalender, Test, Helpers, EchartPersonal },
   data() {
     return {
       showDialog: false,
       info: {
+        avatar: '',
+        college: '4',
         name: '1',
+        phonenumber: '5',
         sex: '2',
         id: '3',
-        college: '4',
-        phonenumber: '5'
+        userId: '',
       }
     }
   },
@@ -69,7 +71,12 @@ export default {
   },
   methods: {
     async getInfo() {
+      const res = this.$store.dispatch('user/getUserInfo')
+      console.log("@@", this.$store.state.user)
+
+
       this.info.name = store.state.user.userInfo.id
+      console.log(store.state.user.userInfo)
       // console.log('@', this.$refs);
       // console.log('@@', this.$refs.staffPhoto);
       if (store.state.user.userInfo.staffPhoto)

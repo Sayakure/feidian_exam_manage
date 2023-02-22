@@ -2,10 +2,11 @@
   <div >
     <div class="show-course-container">
       <div slot="header" class="clearfix">
-      <span class="title" style="font-size: 25px;color: #4171F8;line-height: 40px;">学生全部课程</span>
+      <span class="title" style="font-size: 25px;color: #4171F8;line-height: 40px;">全部课程</span>
       </div>
       <div class="right-nav">
         <SearchCourse />
+        <el-button  style="float: right;margin-left: 30px;;" type="primary">发布考试</el-button>
       </div>
     </div>
     <div class="test-message">

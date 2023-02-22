@@ -1,11 +1,12 @@
 import request from '@/utils/request'
 
 /**
- * 获取试题
+ * 获取课程
  */
-export function getTests() {
+export function getCourse(data) {
   return request({
-    url: '/company/department'
+    url: '/course/join',
+    data
   })
 }
 

@@ -1,16 +1,18 @@
 <template>
   <div class="item">
-    <el-row :span="12" type="flex" justify="end" align="middle">
-      <el-col>
-        <div class="test-name">试题名字</div>
+    <el-row :span="12" type="flex" justify="space-between" align="middle">
+      <el-col style="background-color: pink; width: 80%;">
+        <div class="test-name">试题试题试题</div>
       </el-col>
       <el-col :span="2">
         <el-dropdown @command="operateTests">
           <!-- 下拉菜单内容 -->
-          <span>操作  <i class="el-icon-arrow-down" /></span>
+          <el-button type="primary">
+            <span>操作  <i class="el-icon-arrow-down" /></span>
+          </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="edit">编辑试题</el-dropdown-item>
-            <el-dropdown-item command="del">删除试题</el-dropdown-item>
+              <el-dropdown-item command="edit">编辑试题</el-dropdown-item>
+              <el-dropdown-item command="del">删除试题</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -47,13 +49,13 @@ export default {
         this.$emit('editTest') // 点击编辑 传出要编辑的节点
       } else {
         // 删除
-        this.$confirm('您是否确定要删除该部门吗', { confirmButtonText: '确定', cancelButtonText: '取消' }).then(() => {
+        this.$confirm('您是否确定要删除该试题吗', { confirmButtonText: '确定', cancelButtonText: '取消' }).then(() => {
         //   return delDepartments(this.treeNode.id)
         }).then(() => {
           // 此时已经确定
           // 应该告诉父组件 更新数据
           this.$emit('delDepts')
-          this.$message.success('删除部门成功')
+          this.$message.success('删除试题成功')
         })
       }
     }

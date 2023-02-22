@@ -36,6 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // lintOnSave: false,
     // 代理选项
     // 可以有多个代理选项
     proxy: {

@@ -2,7 +2,7 @@
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link key="collapse" class="sidebar-logo-link" to="/">
-        <img src="@/assets/common/logo.png" class="sidebar-logo  ">
+        <img src="@/assets/common/feidian.gif" class="sidebar-logo  ">
       </router-link>
     </transition>
   </div>
@@ -50,7 +50,7 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 140px;
+      width: 155px;
       vertical-align: middle;
       margin-right: 12px;
    }
@@ -73,6 +73,25 @@ export default {
       width: 32px;
       height: 32px;
     }
+  }
+}
+
+.sideLink {
+  text-align: center;
+  .icon {
+    display: inline-block;
+    width: 76px;
+    height: 76px;
+    background: 'url(' + require('./../assets/common/icon.png') + ')' no-repeat;
+  }
+  .iconGuide {
+    background-position: 0 0;
+  }
+  .iconHelp {
+    background-position: -224px 0;
+  }
+  .iconTechnology {
+    background-position: -460px 0;
   }
 }
 </style>

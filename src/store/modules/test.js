@@ -1,4 +1,4 @@
-import { getTests } from '@/api/test'
+import { getTests } from '@/api/course'
 const state = {
   testInfo: {}
 }
