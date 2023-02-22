@@ -1,14 +1,16 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
   <div class="goTest-container">
-    <TestInfo :show-test-data.sync="showTestData"/>
+    <!-- <ModifyExam /> -->
+    <TestInfo :show-test-data.sync="showTestData" class="testinfo"/>
   </div>
 </template>
 
 <script>
+import ModifyExam from './components/modify-exam.vue';
 import TestInfo from './components/test-info.vue'
 export default {
-  components: { TestInfo },
+  components: { TestInfo, ModifyExam },
   data() {
     return {
       showTestData: true
@@ -21,5 +23,7 @@ export default {
 </script>
 
 <style scoped>
-
+.goTest-container {
+  position: relative;
+}
 </style>

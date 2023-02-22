@@ -3,13 +3,17 @@
     <el-row :span="12" type="flex" justify="space-between" align="middle">
       <el-col style="background-color: pink; width: 80%;">
         <div class="test-name">试题试题试题</div>
+        <el-input
+          type="textarea"
+          :rows="10"
+          placeholder="请输入内容"
+          v-model="editArea">
+        </el-input>
       </el-col>
       <el-col :span="2">
         <el-dropdown @command="operateTests">
           <!-- 下拉菜单内容 -->
-          <el-button type="primary">
             <span>操作  <i class="el-icon-arrow-down" /></span>
-          </el-button>
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="edit">编辑试题</el-dropdown-item>
               <el-dropdown-item command="del">删除试题</el-dropdown-item>
@@ -25,7 +29,8 @@
 export default {
   data() {
     return {
-      tests: {}
+      tests: {},
+      editArea: ''
     }
   },
   created() {

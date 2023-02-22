@@ -1,5 +1,5 @@
 <template>
-  <el-card style="margin-top: 30px;">
+  <el-card class="test-info" style="margin-top: 30px;">
     <div class="title" style="margin-bottom: 50px;font-size: 25px;color: #4171F8;">考试详情</div>
     <div class="test-message">
       <el-table :data="tableData" style="width: 100%">
@@ -41,5 +41,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
