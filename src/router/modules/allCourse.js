@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 
 import ShowCourse from './showCourse'
-import teacherPublish from './teaherPublish'
+import teacherPublish from './teacherPublish'
 
 export default {
   path: '/allCourse',

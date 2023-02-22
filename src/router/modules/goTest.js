@@ -3,7 +3,7 @@ export default {
   name: 'goTest',
     component: () => import('@/views/goTest'),
     meta:{
-      title: '进行考试',
+      title: '学生查看考试情况',
       icon: 'skill'
     }
 }

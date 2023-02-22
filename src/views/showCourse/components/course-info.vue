@@ -11,8 +11,8 @@
       </div>
   
       <div class="info-right">
-        <el-button type="primary">查看所有成绩</el-button>
-        <el-button>查看试题</el-button>
+        <el-button type="primary">考试状态</el-button>
+        <el-button>查看考试分数</el-button>
       </div>
     </div>
   </el-card>

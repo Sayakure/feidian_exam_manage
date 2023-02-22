@@ -6,7 +6,7 @@
       </div>
       <div class="right-nav">
         <SearchCourse />
-        <el-button  style="float: right;margin-left: 30px;;" type="primary">发布考试</el-button>
+        <el-button  style="float: right;margin-left: 30px;" type="primary">发布课程</el-button>
       </div>
     </div>
     <div class="test-message">

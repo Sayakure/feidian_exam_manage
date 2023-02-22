@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import allCourse from './modules/allCourse'
 import allExam from './modules/allExam'
 
-import teacherPublish from './modules/teaherPublish'
+import examTable from '@/store/modules/examTable'
 
 
 Vue.use(Router)
@@ -53,6 +53,11 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+  {
+    path: '/examTable',
+    name: 'examTable',
+    component: () => import('@/views/examTable')
+  },
 
   {
     path: '/',
@@ -68,10 +73,6 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-// 动态路由
-export const asyncRoutes = [
-  teacherPublish
-]
 
 //动态路由的menu总和
 export const asyncMenu = [
@@ -83,7 +84,7 @@ export const asyncMenu = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes, ...asyncMenu, ...asyncRoutes]
+  routes: [...constantRoutes, ...asyncMenu]
 })
 
 const router = createRouter()

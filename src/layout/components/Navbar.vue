@@ -69,7 +69,7 @@ export default {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background-image: -webkit-linear-gradient(left, #3d6df8, #5b8cff);
+  background-image: -webkit-linear-gradient(left, #213777, #6181ca);
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 .app-breadcrumb {
   display: inline-block;
@@ -79,7 +79,7 @@ export default {
   color: #ffffff;
   cursor: text;
   .breadBtn {
-    background: #84a9fe;
+    background: #758bbd;
     font-size: 14px;
     padding: 0 10px;
     display: inline-block;
