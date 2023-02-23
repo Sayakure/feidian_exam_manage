@@ -6,7 +6,7 @@
       </div>
       <div class="right-nav">
         <SearchCourse />
-        <el-button  style="float: right;margin-left: 30px;" type="primary">发布课程</el-button>
+        <el-button @click="dialogVisible = true" style="float: right;margin-left: 30px;" type="primary">发布课程</el-button>
       </div>
     </div>
     <div class="test-message">
@@ -20,6 +20,17 @@
       >
     </el-pagination>
     </div>
+    <el-dialog
+      title="添加课程"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>业务流程是？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -38,6 +49,7 @@ export default {
       //   "userId": "13",
       //   "userName": "测试"
       // }
+      dialogVisible: false,
       courseList: [],
       query:{
         pageNum: 1,

@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     settings,
     user,
     permission,
-    examTable
+    examTable,
   },
   getters
 })

@@ -28,6 +28,7 @@ const actions = {
     const result = await login(data)
     // result就是token
     context.commit('setToken', result)
+    // context.commit('setToken', result.token)
     setTimeStamp()
   },
   // 获取用户资料

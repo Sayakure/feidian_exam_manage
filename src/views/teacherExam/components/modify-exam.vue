@@ -1,15 +1,20 @@
 <template>
   <div class="dashboard-container">
-    <div class="app-container">
+    <el-drawer
+      class="drawer"
+      size="60%"
+      :withHeader="false"
+      :visible.sync="show"
+      direction="ltr">
       <div class="modify-inner">
         <div slot="header" class="card-title" justify="space-between">
           <div class="title" style="font-size: 28px;">课程名</div>
           <el-button size="small" style="float: right;margin-top: -33px;" type="primary" @click="addTest()">增加试题</el-button>
         </div>
-          <TestTools v-for="i in 10" :key="i" @editTest="editTest()" />
+          <TestTools v-for="i in 50" :key="i" @editTest="editTest()" />
         <AddTest :show-dialog.sync="showDialog" @click="addTest()" />
       </div>
-    </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -20,11 +25,15 @@ export default {
   components: { TestTools, AddTest},
   data() {
     return {
+      show: false,
       showDialog: false,
       editDialog: false
     }
   },
   methods: {
+    openEdit() {
+      this.show = true
+    },
     addTest() {
       this.showDialog = true
     },
@@ -36,21 +45,8 @@ export default {
 </script>
 
 <style scoped>
-.app-container {
-  top: 0;
-  bottom: 0;
-  background-color: red;
-  position: fixed;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  opacity: 0.8;
-  width: 100%;
-  z-index: 3;
-}
 .modify-inner {
-  background-color: pink;
-  width: 70%;
-  max-width: 700px;
+  padding: 20px 10px;
   opacity: 1;
 }
 </style>

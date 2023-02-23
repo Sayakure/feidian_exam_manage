@@ -1,19 +1,13 @@
 <template>
   <div class="item">
-    <el-row :span="12" type="flex" justify="space-between" align="middle">
-      <el-col style="background-color: pink; width: 80%;">
+    <el-row class="test-item" :span="12" type="flex" justify="space-between" align="middle">
+      <el-col style="width: 80%;">
         <div class="test-name">试题试题试题</div>
-        <el-input
-          type="textarea"
-          :rows="10"
-          placeholder="请输入内容"
-          v-model="editArea">
-        </el-input>
       </el-col>
-      <el-col :span="2">
+      <el-col :span="2" class="command">
         <el-dropdown @command="operateTests">
           <!-- 下拉菜单内容 -->
-            <span>操作  <i class="el-icon-arrow-down" /></span>
+          <span>操作<i class="el-icon-arrow-down" /></span>
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="edit">编辑试题</el-dropdown-item>
               <el-dropdown-item command="del">删除试题</el-dropdown-item>
@@ -37,12 +31,6 @@ export default {
     this.getTests()
   },
   methods: {
-    // props: {
-    //   test: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // },
     getTests() {
       // let res = await getTests()
       console.log('获取试题')
@@ -72,5 +60,17 @@ export default {
 .item {
     margin: 5px 0;
     padding: 15px 0;
+}
+
+.test-item {
+  position: relative;
+}
+.test-name {
+  width: 80%;
+}
+.command {
+  position: absolute;
+  right: 10px;
+  top: 0px;
 }
 </style>

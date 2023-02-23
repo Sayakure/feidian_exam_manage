@@ -1,9 +1,6 @@
 <template>
-  <el-dialog title="增加试题" :visible="showDialog" @close="btnCancel">
+  <el-dialog  :modal=false title="增加试题" :visible="showDialog" @close="btnCancel">
     <el-form ref="addForm" :model="addData" label-width="120px" :rules="rules">
-      <el-form-item label="题目描述" prop="describe">
-        <el-input v-model="addData.describe" style="width:80%" placeholder="请填入题目简述" />
-      </el-form-item>
       <el-form-item label="题目详情" prop="info">
         <el-input v-model="addData.info" type="textarea" :rows="12" style="width:90%" />
       </el-form-item>
@@ -30,11 +27,9 @@ export default {
   data() {
     return {
       addData: {
-        describe: '',
         info: ''
       },
       rules: {
-        describe: [{ required: true, message: '题目简述', trigger: 'blur' }, { min: 1, max: 300, message: '题目简述为1-300个字符', trigger: blur }],
         info: [{ required: true, message: '题目不能为空', trigger: 'blur' }, { min: 1, max: 1000, message: '题目主体不能超过1000个字符', trigger: blur }]
       }
     }

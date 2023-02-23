@@ -6,8 +6,8 @@
         <el-table-column prop="subject" label="考试科目" style="width:50%" />
         <el-table-column prop="score" label="考试情况" style="width:50%" />
         <el-table-column>
-            <el-button type="primary">查看考试题</el-button>
-            <el-button>发布考试题</el-button>
+            <el-button type="primary" @click="checkExam()">查看考试题</el-button>
+            <el-button @click="showPublish()">发布考试题</el-button>
         </el-table-column>
       </el-table>
     </div>
@@ -16,12 +16,6 @@
 
 <script>
 export default {
-  props: {
-    showTestData: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       tableData: [{
@@ -33,6 +27,12 @@ export default {
     }
   },
   methods: {
+    showPublish() {
+      this.$emit('showDialog')
+    },
+    checkExam() {
+      this.$emit('show')
+    },
     goTest() {
       console.log('去考试')
     }

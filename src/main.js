@@ -16,6 +16,7 @@ import router from './router'
 import * as directives from '@/directives'
 import '@/icons' // icon
 import '@/permission' // permission control
+import 'default-passive-events'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -26,10 +27,10 @@ import '@/permission' // permission control
  */
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
+// Vue.use(ElementUI, { locale })
 Vue.use(Components) // 注册自己的自定义组件
 // 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 Object.keys(directives).forEach(key => {
   Vue.directive(key, directives[key])
 })

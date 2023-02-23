@@ -63,15 +63,10 @@
 </template>
 
 <script>
-import { validMobile } from '@/utils/validate'
 import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data() {
-    const validateMobile = (rule, value, callback) => {
-      // value是否符合手机号格式
-      validMobile(value) ? callback() : callback(new Error('手机号格式不正确'))
-    }
     // validator 自定义校验函数
     // 可以自主的校验函数
     // function (rule, value, callback) {}
@@ -83,10 +78,7 @@ export default {
         password: '123456'
       },
       loginRules: {
-        mobile: [{ required: true, trigger: 'blur', message: '请输入手机号' }, {
-          trigger: 'blur',
-          validator: validateMobile// 校验手机号
-        }],
+        mobile: [{ required: true, trigger: 'blur', message: '请输入手机号' }],
         // 校验规则
         // min   max  校验的字符串 指的是长度 校验的是数字 校验的大小
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
@@ -129,7 +121,7 @@ export default {
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
           } catch (error) {
-            //
+            this.$message(error)
           } finally {
             // finally是和trycatch配套的 不论你执行不执行catch都会执行finally
             this.loading = false

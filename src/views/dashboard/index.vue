@@ -22,16 +22,16 @@
             </el-col>
             <el-col>
               <div class="describe">{{ info.name }}</div>
-              <div class="describe">{{ info.gender }}</div>
-              <div class="describe">{{ info.id }}</div>
+              <div class="describe">{{ info.sex }}</div>
+              <div class="describe">{{ info.userId }}</div>
               <div class="describe">{{ info.college }}</div>
-              <div class="describe">{{ info.mobile }}</div>
+              <div class="describe">{{ info.phonenumber }}</div>
             </el-col>
           </el-row>
         </el-col>
       </el-row>
     </el-card>
-    <EditInfo :show-dialog.sync="showDialog" />
+    <EditInfo :show-dialog.sync="showDialog" v-if="showDialog"/>
     <div class="others">
       <ExamCalender />
       <div class="small-items">
@@ -56,13 +56,12 @@ export default {
     return {
       showDialog: false,
       info: {
-        avatar: '',
-        college: '4',
+        userId: '1',
         name: '1',
         phonenumber: '5',
+        college: '4',
+        avatar: '',
         sex: '2',
-        id: '3',
-        userId: '',
       }
     }
   },
@@ -72,19 +71,19 @@ export default {
   methods: {
     async getInfo() {
       const res = this.$store.dispatch('user/getUserInfo')
-      console.log("@@", this.$store.state.user)
+      console.log("@@用户信息", this.$store.getters.userInfo)
 
 
       this.info.name = store.state.user.userInfo.id
-      console.log(store.state.user.userInfo)
+      // 头像
       // console.log('@', this.$refs);
       // console.log('@@', this.$refs.staffPhoto);
-      if (store.state.user.userInfo.staffPhoto)
-      {
-        // this.$refs.staffPhoto.fileList = [{ url: store.state.user.userInfo.staffPhoto, upload: true }]
-      } else {
-        console.log(1)
-      }
+      // if (store.state.user.userInfo.staffPhoto)
+      // {
+      //   // this.$refs.staffPhoto.fileList = [{ url: store.state.user.userInfo.staffPhoto, upload: true }]
+      // } else {
+      //   console.log(1)
+      // }
     },
     editInfo() {
       this.showDialog = true

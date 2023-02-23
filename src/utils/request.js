@@ -20,6 +20,7 @@ service.interceptors.request.use(config => {
       return Promise.reject(new Error('token超时了'))
     }
     // 记住要把BEarer给删了
+    // config.headers.Authorization = `${store.getters.token}`
     config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
@@ -33,6 +34,7 @@ service.interceptors.response.use(response => {
 
   // success 变成code了，一会要查 数据结构也不一样，要改
   const { success, message, data } = response.data
+  // const { code, message, data } = response.data
   if (success) {
     return data
   } else {

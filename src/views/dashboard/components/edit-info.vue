@@ -60,7 +60,14 @@ export default {
       }
     }
   },
+  created() {
+    this.setKnownInfo()
+  },
   methods: {
+    setKnownInfo() {
+      console.log("编辑信息时接受到",this.$store.getters.userInfo);
+      // 设置
+    },
     btnCancel() {
       this.infoData = {
         name: '',
@@ -72,9 +79,11 @@ export default {
       this.$emit('update:showDialog', false)
     },
     btnOK() {
-      this.$refs.infoForm.validate().then(() => {
+      this.$refs.infoForm.validate().then(async() => {
         // setUserInfo(this.infoData)
-        // 发请求
+        // 重置个人信息
+        const res = await this.$store.commit('user/getUserInfo')
+        console.log('编辑后的个人信息', res);
       }).then(() => {
         this.$emit('update:showDialog', false)
       })
