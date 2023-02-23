@@ -13,7 +13,8 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
-const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+// const port = process.env.port || process.env.npm_config_port || 8081 // dev port
+const port = 8081
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -46,13 +47,14 @@ module.exports = {
 
       '/api': {
         target: 'http://ihrm.itheima.net/', // 要代理的目标地址
-        changeOrigin: true // 是否跨域
+        // target: 'http://172.16.6.132',
+        changeOrigin: true ,// 是否跨域
         // localhost:8888/api/user => 触发代理 =>
         //  http://www.baidu.com/user  想要这种
         //  http://www.baidu.com/api/user  下面是目前的
-        // pathRewrite: {
-        //   '^/api': '' // 相当于将跨域代理之后的地址进行再次替换 就可以将 /api去掉
-        // }
+        pathRewrite: {
+          '^/api': '' // 相当于将跨域代理之后的地址进行再次替换 就可以将 /api去掉
+        }
       }
     }
     // before: require('./mock/mock-server.js')

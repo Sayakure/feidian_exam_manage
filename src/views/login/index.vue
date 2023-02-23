@@ -13,8 +13,8 @@
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.mobile"
+          ref="userId"
+          v-model="loginForm.userId"
           placeholder="请输入手机号"
           type="text"
           tabindex="1"
@@ -74,11 +74,11 @@ export default {
 
     return {
       loginForm: {
-        mobile: '13800000002',
+        userId: '13',
         password: '123456'
       },
       loginRules: {
-        mobile: [{ required: true, trigger: 'blur', message: '请输入手机号' }],
+        userId: [{ required: true, trigger: 'blur', message: '请输入手机号' }],
         // 校验规则
         // min   max  校验的字符串 指的是长度 校验的是数字 校验的大小
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
@@ -118,8 +118,11 @@ export default {
           this.loading = true
           try {
             await this['user/login'](this.loginForm)
+
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
+            const userInfo = this.$store.commit('user/getUserInfo')
+            console.log(userInfo);
           } catch (error) {
             this.$message(error)
           } finally {

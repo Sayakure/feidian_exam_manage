@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
-    <button @click="getInfo()">测试啊测试</button>
     <!-- <Test /> -->
+    <button @click="demo()">测试</button>
     <el-card style="padding: 20px 0">
       <el-row type="flex" justify="space-between" style="width:80%;padding-top: 15px;">
         <el-col>
@@ -48,7 +48,6 @@ import Helpers from './components/helpers.vue'
 import Test from './components/test.vue'
 import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
-import store from '@/store'
 export default {
   name: 'Dashboard',
   components: { EditInfo, ExamCalender, Test, Helpers, EchartPersonal },
@@ -56,34 +55,35 @@ export default {
     return {
       showDialog: false,
       info: {
-        userId: '1',
-        name: '1',
-        phonenumber: '5',
-        college: '4',
+        userId: '',
+        name: '',
+        phonenumber: '',
+        college: '',
         avatar: '',
-        sex: '2',
+        sex: '',
       }
     }
   },
   created() {
     this.getInfo()
   },
+  created() {
+    this.getInfo()
+  },
   methods: {
-    async getInfo() {
-      const res = this.$store.dispatch('user/getUserInfo')
-      console.log("@@用户信息", this.$store.getters.userInfo)
-
-
-      this.info.name = store.state.user.userInfo.id
-      // 头像
-      // console.log('@', this.$refs);
-      // console.log('@@', this.$refs.staffPhoto);
-      // if (store.state.user.userInfo.staffPhoto)
-      // {
-      //   // this.$refs.staffPhoto.fileList = [{ url: store.state.user.userInfo.staffPhoto, upload: true }]
-      // } else {
-      //   console.log(1)
-      // }
+    demo() {
+      this.getInfo()
+    },
+    getInfo() {
+      const res = this.$store.state.user.userInfo
+      // const res = this.$store.dispatch('user/getUserInfo')
+      console.log("@@1用户信息", this.$store.state.user.userInfo)
+      this.college = res.college
+      this.name = res.name
+      this.phonenumber = res.phonenumber
+      this.role = res.role
+      this.sex = res.sex
+      this.userId = res.userId
     },
     editInfo() {
       this.showDialog = true

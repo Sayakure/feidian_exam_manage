@@ -1,9 +1,9 @@
 import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth'
-import { login, getUserInfo, getUserDetailById } from '@/api/user'
-// import { getUserInfo } from '@/api/user'
+import { login, getUserInfo } from '@/api/user'
 import { resetRouter } from '@/router'
 const state = {
   token: getToken(), // 设置token为共享
+  // token: '123',
   userInfo: {}
 }
 const mutations = {
@@ -26,6 +26,7 @@ const mutations = {
 const actions = {
   async login(context, data) {
     const result = await login(data)
+    console.log(data);
     // result就是token
     context.commit('setToken', result)
     // context.commit('setToken', result.token)
@@ -34,15 +35,8 @@ const actions = {
   // 获取用户资料
   async getUserInfo(context) {
     // 下面的两段都要删 改成
-    // const result = await getUserInfo()
-    // context.commit('setUserInfo', result)
-    // return result
-
-
     const result = await getUserInfo()
-    // 用户的详情数据
-    const baseInfo = await getUserDetailById(result.userId)
-    context.commit('setUserInfo', { ...result, ...baseInfo }) // 修改state中的用户资料
+    context.commit('setUserInfo', result)
     return result
   },
   // 登出操作

@@ -4,7 +4,8 @@
     <div class="test-message">
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="subject" label="考试科目" style="width:50%" />
-        <el-table-column prop="score" label="考试情况" style="width:50%" />
+        <el-table-column prop="status" label="考试状态" style="width:50%" />
+        <el-table-column prop="score" label="考试分数" style="width:50%" />
         <el-table-column>
           <router-link to="/goTest">
             <el-button type="primary" @click="goTest()">进行考试</el-button>
@@ -18,10 +19,6 @@
 <script>
 export default {
   props: {
-    showTestData: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {

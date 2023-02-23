@@ -3,7 +3,7 @@
   <div class="course" style="margin-bottom: 15px;">
     <el-card >
       <div class="course-info-contain">
-        <el-collapse v-model="activeNames" @change="handleChange" class="collapse">
+        <el-collapse v-model="activeNames" class="collapse">
         <el-collapse-item name="1">
           <template #title>
             <div class="info-left">
@@ -43,7 +43,6 @@
        </div>
         </el-collapse-item>
         </el-collapse>
-
       </div>
     </el-card>
   </div>

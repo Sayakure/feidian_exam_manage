@@ -4,7 +4,6 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 前置守卫
-// assign是register 当时脑子抽了没想起来这个词
 const whileList = ['/login', '/404', '/assign']
 router.beforeEach(async(to, from, next) => {
   NProgress.start() // 开启进度条
@@ -14,8 +13,8 @@ router.beforeEach(async(to, from, next) => {
       next('/')
     } else {
       // 在vuex中没有用户资料才需要获取用户信息
-      if (!store.getters.userId) {
-        await store.dispatch('user/getUserInfo')
+      if (!store.state.user.token) {
+        // await store.dispatch('user/getUserInfo')
 
         // 底下的不知道是什么时候写的了，反正改成
         // const routes = await store.dispatch('permission/filterRoutes', roles.menus)

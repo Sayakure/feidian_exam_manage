@@ -11,8 +11,8 @@
       </div>
   
       <div class="info-right">
-        <el-button type="primary">考试状态</el-button>
-        <el-button>查看考试分数</el-button>
+        <span style="margin-right: 15px;">考试状态</span>
+        <span>查看考试分数</span>
       </div>
     </div>
   </el-card>
@@ -21,17 +21,15 @@
 <script>
 export default {
     props: {
-      // {
-      //   "courseId": "1",
-      //   "courseName": "C++程序测试",
-      //   "teacherName": "test2",
-      //   "userId": "13",
-      //   "userName": "测试"
-      // }
-      courseInfo: {
-
-      }
-    }
+        // {
+        //   "courseId": "1",
+        //   "courseName": "C++程序测试",
+        //   "teacherName": "test2",
+        //   "userId": "13",
+        //   "userName": "测试"
+        // }
+        courseInfo: {}
+    },
 }
 </script>
 

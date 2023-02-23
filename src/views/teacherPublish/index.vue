@@ -24,8 +24,8 @@
       title="添加课程"
       :visible.sync="dialogVisible"
       width="30%"
-      :before-close="handleClose">
-      <span>业务流程是？</span>
+      >
+      <span>业务流程是？学生？？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
