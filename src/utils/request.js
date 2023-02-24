@@ -7,9 +7,9 @@ const TimeOut = 3600
 const service = axios.create({
 //    设置基础地址
 // 环境变量 npm run dev  /api   /生产环境 npm run build  /prod-api
-  // baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: process.env.VUE_APP_BASE_API,
   // baseURL: 'http://10.162.67.2',
-  baseURL: "http://172.16.6.132:8081",
+  // baseURL: "http://172.16.6.132:8081",
   timeout: 5000
 })
 // 请求拦截器

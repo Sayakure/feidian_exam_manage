@@ -5,7 +5,7 @@
       <span class="title" style="font-size: 25px;color: #4171F8;line-height: 40px;">全部课程</span>
       </div>
       <div class="right-nav">
-        <SearchCourse />
+        <SearchCourse @search="search(course)" />
         <el-button @click="dialogVisible = true" style="float: right;margin-left: 30px;" type="primary">发布课程</el-button>
       </div>
     </div>
@@ -15,69 +15,127 @@
       <el-pagination
       @current-change="pageChange"
       layout="prev, pager, next"
-      :total="50"
+      :total="page.total"
       class="pagination"
       >
     </el-pagination>
     </div>
+
     <el-dialog
       title="添加课程"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="50%"
       >
-      <span>业务流程是？学生？？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
+    <el-form  ref="addCourseForm" :rules="rules" :model="addCourseForm" label-width="100px">
+        <button @click="demo()">测试</button>
+        <el-form-item label="用户id:" prop="userId">
+          <el-input v-model="addCourseForm.userId" placeholder="请填入用户名称"></el-input>
+        </el-form-item>
+        <el-form-item label="课程名称:" prop="courseName">
+          <el-input v-model="addCourseForm.courseName" placeholder="请填入课程名称"></el-input>
+        </el-form-item>
+        <el-form-item label="参课学生：">
+          <el-checkbox-group v-model="addCourseForm.studentIds" :min="1">
+            <el-checkbox v-for="student in students" :label="student.userId">{{ student.name }}</el-checkbox>
+        </el-checkbox-group>
+        </el-form-item>
+
+        <el-row slot="footer" type="flex" justify="center">
+          <!--放置列 -->
+          <el-col :span="20">
+            <el-button @click="btnCancel()">取消</el-button>
+            <el-button type="primary" @click="btnOK()">确定</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
+      </el-dialog>
   </div>
 </template>
 
 <script>
-// import { getCourse } from '@/api/course'
+import { teacherGetCourse, addCourseStu, addCourse } from '@/api/course'
 import SearchCourse from './components/search-course.vue'
 import CoursrInfo from './components/course-info.vue'
 export default {
   components: { CoursrInfo, SearchCourse },
   data() {
     return {
-      // {
-      //   "courseId": "1",
-      //   "courseName": "C++程序测试",
-      //   "teacherName": "test2",
-      //   "userId": "13",
-      //   "userName": "测试"
-      // }
       dialogVisible: false,
+      rules: {
+        userId: [{ required: true, message: '用户ID不能为空', trigger: 'blur' }],
+        courseName: [{ required: true, message: '课程名称不能为空', trigger: 'blur' }]
+      },
+      checkedStudents: [{userId: 13,name: '张三'}],
+      students: [{userId: 13,name: '张三'}],
+      addCourseForm: {
+        userId: '',
+        courseName: '',
+        studentIds: []
+      },
       courseList: [],
       query:{
         pageNum: 1,
-        pageSize: 10
+        pageSize: 5,
       },
       page: {
         page: 1,
-        pageSize: 10,
-        total: 0
-      },
-      tableData: [{
-        name: '1',
-        subject: '1',
-        score: '1',
-        date: '1'
-      }]
+        pageSize: 5,
+        total: 50
+      }
     }
   },
+  created() {
+    this.pageChange()
+    this.addCourseStu()
+  },
   methods: {
+    async addCourseStu() {
+      const res = await addCourseStu()
+      this.students = res
+      console.log("请求到的学生是", res)
+      console.log("加入到待选项的学生是", students);
+    },
+    demo() {
+      console.log(queryInfo.pageNum);
+    },
+    search(course) {
+      console.log("传递到父组件的数据是", course);
+      this.page.total = course.total
+      this.courseList = course.rows
+      console.log("courseList是", this.courseList)
+    },
     async pageChange(page) {
       this.page.page = page
       this.query.pageNum = page
       console.log('page', page)
-      // 获取新数据
-      // const res = await getCourse(query)
-      // this.courseList = res.rows
+      console.log(this.query)
+      const res = await teacherGetCourse(this.query)
+      this.courseList = res.rows
+      console.log("老师请求到的课程数据是：", this.courseList)
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    },
+    btnOK() {
+      this.$refs.addCourseForm.validate().then(async() => {
+        const res = addCourse(addCourseForm)
+        console.log("添加课程的结果是", res);
+      }).then(() => {
+        this.$message('添加成功')
+        this.dialogVisible = false
+      })
+    },
+    btnCancel() {
+      this.addCourseForm= {
+        userId: '',
+        courseName: '',
+        studentIds: []
+      },
+      this.$refs.infoForm.resetFields() // 重置方法
+      this.dialogVisible = false
     }
-  },
+  }
 }
 </script>
 

@@ -64,20 +64,28 @@ export default {
       }
     }
   },
-  created() {
-    this.getInfo()
+  watch: {
+    "$store.state.userInfo": {
+      handler(newVal,oldVal) {
+        console.log('新', newVal);
+        console.log('旧', oldval);
+
+        setKnownInfo()
+      },
+      immediate: true
+    }
   },
   created() {
     this.getInfo()
   },
   methods: {
     demo() {
-      this.getInfo()
     },
     getInfo() {
+      this.$store.dispatch('user/getUserInfo')
       const res = this.$store.state.user.userInfo
-      // const res = this.$store.dispatch('user/getUserInfo')
-      console.log("@@1用户信息", this.$store.state.user.userInfo)
+      console.log("@@用户信息", this.$store.state.user.userInfo)
+      // this.info = res
       this.college = res.college
       this.name = res.name
       this.phonenumber = res.phonenumber

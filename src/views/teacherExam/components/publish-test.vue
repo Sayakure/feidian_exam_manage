@@ -63,7 +63,6 @@ export default {
     }
   },
   mounted() {
-    this.cancelScroll()
   },
   methods: {
     showDialog() {

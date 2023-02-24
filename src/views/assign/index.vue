@@ -87,17 +87,17 @@
       </el-form-item>
 
       <!-- 确认密码 -->
-      <el-form-item prop="password">
+      <el-form-item prop="password2">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
         <el-input
           :key="passwordType"
-          ref="repeatPassword"
-          v-model="repeatPassword"
+          ref="password2"
+          v-model="password2"
           :type="passwordType"
           placeholder="请再次输入密码"
-          name="repeatPassword"
+          name="password2"
           tabindex="2"
           auto-complete="on"
           @keyup.enter.native="handleLogin"
@@ -127,11 +127,7 @@
         @click.native.prevent="handleRegister"
       >登录</el-button>
 
-      <div class="tips">
-        <span style="margin-right:20px;">账号: 13800000002</span>
-        <span> 密码: 123456</span>
-      </div>
-
+      <router-link to="/login" class="login">已有账号？去登录</router-link>
     </el-form>
   </div>
 </template>
@@ -147,13 +143,18 @@ export default {
       // value是否符合手机号格式
       validMobile(value) ? callback() : callback(new Error('手机号格式不正确'))
     }
+
+    const checkRepeat = (rule, value, callback) => {
+      // value是否符合手机号格式
+      password2 === assignForm.password ? callback() : callback(new Error('手机号格式不正确'))
+    }
     // validator 自定义校验函数
     // 可以自主的校验函数
     // function (rule, value, callback) {}
     // value => callback  callback(new Error())
 
     return {
-      repeatPassword: '',
+      password2: '',
       assignForm: {
         name: '',
         sex: '',
@@ -171,6 +172,12 @@ export default {
         college: [{ required: true, trigger: 'blur', message: '所在学院不能为空' }, { min: 1, max: 15, message: '所在学院为1-15长度的字符' }],
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
           min: 6, max: 16, message: '密码长度在6-16位之间', trigger: 'blur'
+        }],
+        password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
+          min: 6, max: 16, message: '密码长度在6-16位之间', trigger: 'blur'
+        }, {
+          trigger: 'blur',
+          validator: checkRepeat
         }]
       },
       loading: false,
@@ -207,7 +214,7 @@ export default {
           // 表示校验通过
           this.loading = true
           try {
-            await this['user/login'](this.loginForm)
+            await register(this.loginForm)
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
           } catch (error) {
@@ -300,7 +307,7 @@ $light_gray:#eee;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 50px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -351,5 +358,10 @@ $light_gray:#eee;
   &:hover {
     color: rgb(191, 188, 224);
   }
+}
+
+.login {
+  color: #ccc;
+  font-size: 14px;
 }
 </style>

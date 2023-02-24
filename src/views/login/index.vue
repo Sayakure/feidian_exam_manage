@@ -54,8 +54,6 @@
         <router-link to="/assign">
           <span class="assign">还没有账号？去注册 <i class="el-icon-right" /></span>
         </router-link>
-        <span style="margin-right:20px;">账号: 13800000002</span>
-        <span> 密码: 123456</span>
       </div>
 
     </el-form>
@@ -67,18 +65,13 @@ import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data() {
-    // validator 自定义校验函数
-    // 可以自主的校验函数
-    // function (rule, value, callback) {}
-    // value => callback  callback(new Error())
-
     return {
       loginForm: {
         userId: '13',
         password: '123456'
       },
       loginRules: {
-        userId: [{ required: true, trigger: 'blur', message: '请输入手机号' }],
+        userId: [{ required: true, trigger: 'blur', message: '请输入账号' }],
         // 校验规则
         // min   max  校验的字符串 指的是长度 校验的是数字 校验的大小
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
@@ -122,7 +115,7 @@ export default {
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
             const userInfo = this.$store.commit('user/getUserInfo')
-            console.log(userInfo);
+            console.log(userInfo)
           } catch (error) {
             this.$message(error)
           } finally {

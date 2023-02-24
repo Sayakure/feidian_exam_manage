@@ -29,7 +29,7 @@
 </template>
 
 <script>
-// import { setUserInfo } from '@/api/user'
+import { setUserInfo } from '@/api/user'
 export default {
   props: {
     showDialog: {
@@ -46,8 +46,8 @@ export default {
     return {
       infoData: {
         name: '',
-        gender: '',
-        mobile: '',
+        sex: '',
+        phonenumber: '',
         college: ''
       },
       rules: {
@@ -67,6 +67,11 @@ export default {
     setKnownInfo() {
       console.log("编辑信息时接受到",this.$store.getters.userInfo);
       // 设置
+      const res = this.$store.getters.userInfo
+      this.infoData.name = res.company
+      this.infoData.sex = res.sex
+      this.infoData.phonenumber = res.phonenumber
+      this.infoData.college = res.college
     },
     btnCancel() {
       this.infoData = {
@@ -80,7 +85,7 @@ export default {
     },
     btnOK() {
       this.$refs.infoForm.validate().then(async() => {
-        // setUserInfo(this.infoData)
+        setUserInfo(this.infoData)
         // 重置个人信息
         const res = await this.$store.commit('user/getUserInfo')
         console.log('编辑后的个人信息', res);

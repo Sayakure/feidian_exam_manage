@@ -1,49 +1,58 @@
 import request from '@/utils/request'
 
 /**
- * 获取课程
+ * 学生获取课程
  */
-export function getCourse(data) {
+export function stuGetCourse(data) {
   return request({
     url: '/course/join',
     data
   })
 }
-
 /**
- * 删除试题
+ * 老师获取课程
  */
-export function delTests(id) {
+export function teacherGetCourse(data) {
   return request({
-    url: `/company/department/${id}`,
-    method: 'delete'
-  })
-}
-/**
- * 新增试题
- */
-export function addTests(data) {
-  return request({
-    method: 'post',
-    data,
-    url: '/company/department'
-  })
-}
-/**
- * 获取试题详情
- */
-export function getDepartDetail(id) {
-  return request({
-    url: `/company/department/${id}`
-  })
-}
-/**
- * 更新部门详情
- */
-export function updateTest(data) {
-  return request({
-    url: `/company/department/${data.id}`,
-    method: 'put',
+    url: '/course/publish',
     data
   })
 }
+/**
+ * 发布课程
+ */
+export function addCourse(data) {
+  return request({
+    url: '/course/publish/add',
+    method: 'post',
+    data
+  })
+}
+/**
+ * 发布课程所需要的学生
+ */
+export function addCourseStu() {
+  return request({
+    url: '/course/publish/students'
+  })
+}
+
+/**
+ * 查看课程下的学生
+ */
+// 查看该课程下学生成绩
+export function checkStudentScore(id) {
+  return request({
+    url: `/exam/add/${id}`
+  })
+}
+
+/**
+ * 打回考试
+ */
+// export function backExam() {
+//   return request({
+//     url: ''
+//   })
+// }
+

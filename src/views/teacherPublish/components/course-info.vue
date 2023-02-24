@@ -90,7 +90,7 @@ export default {
     methods: {
       showStuTest() {
         this.drawer = true
-        console.log(drawer);
+        console.log(this.drawer);
       }
     }
 }

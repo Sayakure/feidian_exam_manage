@@ -34,7 +34,6 @@ const actions = {
   },
   // 获取用户资料
   async getUserInfo(context) {
-    // 下面的两段都要删 改成
     const result = await getUserInfo()
     context.commit('setUserInfo', result)
     return result

@@ -1,8 +1,8 @@
 <template>
   <div class="search-course-container">
     <el-input class="search-input" v-model="searchText" placeholder="请输入所查询课程号或课程名">
-      <i slot="suffix" class="el-icon-search icon" style="color: #4C7CFB;"></i>
     </el-input>
+    <el-button slot="suffix" @click="search()" icon="el-icon-search" style="margin-right: 10px;margin-left: -5px;"></el-button>
 
     <el-radio v-model="searchBy" label="courseName" >课程名称</el-radio>
     <el-radio v-model="searchBy" label="courseId">课程ID</el-radio>
@@ -10,22 +10,39 @@
 </template>
 
 <script>
-import store from '@/store'
+import { teacherGetCourse } from '@/api/course'
 export default {
 data() {
   return {
     searchBy: 'courseName',
     searchText : '',
-    userInfo: {}
+    searchInfo: {
+      pageNum: '1',
+      pageSize: '5',
+      courseId: '',
+      courseName: ''
+    },
+    course: {}
   }
 },
 created() {
-  this.getInfo()
 },
 methods: {
-  getInfo() {
-    console.log(store.state.user.userInfo)
-  }
+  async search() {
+    // console.log("查询");
+    // console.log(this.searchBy);
+    // console.log(this.searchText);
+    if (this.searchBy === 'courseName') {
+      this.searchInfo.courseName = this.searchText
+    } else {
+      this.searchInfo.courseId = this.searchText
+    }
+    console.log("请求查询的信息是", this.searchInfo);
+    const res = await teacherGetCourse(this.searchInfo)
+    this.searchText = ""
+    this.course = res
+    this.$emit('search', course)
+  },
 }
 }
 </script>
@@ -39,7 +56,7 @@ margin-right: 10px;
 height: 40px;
 width: 250px
 }
-.icon {
+.search-icon {
 position: absolute;
 right: 6px;
 top: 12px;

@@ -1,8 +1,5 @@
 import request from '@/utils/request'
 
-/**
- *  下边的是新api
- */
 // 注册
 export function register(data) {
   return request({
@@ -40,21 +37,12 @@ return request({
   })
 }
 // 修改用户信息
-// export function setUserInfo() {
-//   return request({
-//     url: '/update',
-//     method: postInfoVue
-//   })
-// }
-
-
-
-/**
- * 根据用户ID获取用户详情
- */
-export function getUserDetailById(id) {
+export function setUserInfo(data) {
   return request({
-    url: `/sys/user/${id}`
+    url: '/update',
+    method: 'put',
+    data
   })
 }
+
 

@@ -84,8 +84,7 @@ export const asyncMenu = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  // routes: [...constantRoutes, ...asyncMenu]
-  routes: [...asyncMenu]
+  routes: [...constantRoutes, ...asyncMenu]
 })
 
 const router = createRouter()
