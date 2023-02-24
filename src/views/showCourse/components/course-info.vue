@@ -5,9 +5,9 @@
         <!-- <span>课程号：{{ courseInfo.courseId }}</span>
         <span>课程名：{{ courseInfo.courseName}}</span>
         <span>授课老师：{{ courseInfo.teacherName}}</span> -->
-        <span>课程号：</span>
-        <span>课程名：</span>
-        <span>授课老师：</span>
+        <div class="info">课程号：{{ course.courseId}}</div>
+        <div class="info">课程名：{{ course.courseName}}</div>
+        <div class="info">授课老师：{{ course.teacherName}}</div>
       </div>
   
       <div class="info-right">
@@ -28,7 +28,10 @@ export default {
         //   "userId": "13",
         //   "userName": "测试"
         // }
-        courseInfo: {}
+        course: {
+          type: Object,
+          default: () => {}
+        }
     },
 }
 </script>
@@ -37,5 +40,11 @@ export default {
 .course-info-contain {
   display: flex;
   justify-content: space-between;
+}
+.info-left {
+  display: flex;
+}
+.info {
+  margin-right: 10px;
 }
 </style>

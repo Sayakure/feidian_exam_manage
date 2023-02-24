@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="test-message">
-      <CoursrInfo v-for="i in 10"/>
+      <CoursrInfo v-for="course in courseList" :course="course"/>
       <!-- <CoursrInfo v-for="item in courseList" :key="item.coursrId" :courseInfo="item"/> -->
       <el-pagination
       @current-change="pageChange"
@@ -27,7 +27,6 @@
       width="50%"
       >
     <el-form  ref="addCourseForm" :rules="rules" :model="addCourseForm" label-width="100px">
-        <button @click="demo()">测试</button>
         <el-form-item label="用户id:" prop="userId">
           <el-input v-model="addCourseForm.userId" placeholder="请填入用户名称"></el-input>
         </el-form-item>
@@ -40,9 +39,9 @@
         </el-checkbox-group>
         </el-form-item>
 
-        <el-row slot="footer" type="flex" justify="center">
+        <el-row  type="flex" justify="center">
           <!--放置列 -->
-          <el-col :span="20">
+          <el-col :span="10">
             <el-button @click="btnCancel()">取消</el-button>
             <el-button type="primary" @click="btnOK()">确定</el-button>
           </el-col>
@@ -65,8 +64,8 @@ export default {
         userId: [{ required: true, message: '用户ID不能为空', trigger: 'blur' }],
         courseName: [{ required: true, message: '课程名称不能为空', trigger: 'blur' }]
       },
-      checkedStudents: [{userId: 13,name: '张三'}],
-      students: [{userId: 13,name: '张三'}],
+      checkedStudents: [],
+      students: [],
       addCourseForm: {
         userId: '',
         courseName: '',
@@ -85,7 +84,7 @@ export default {
     }
   },
   created() {
-    this.pageChange()
+    this.pageChange(1)
     this.addCourseStu()
   },
   methods: {
@@ -93,13 +92,10 @@ export default {
       const res = await addCourseStu()
       this.students = res
       console.log("请求到的学生是", res)
-      console.log("加入到待选项的学生是", students);
-    },
-    demo() {
-      console.log(queryInfo.pageNum);
+      console.log("加入到待选项的学生是", this.students);
     },
     search(course) {
-      console.log("传递到父组件的数据是", course);
+      console.log("传递到父组件的数据是", this.course);
       this.page.total = course.total
       this.courseList = course.rows
       console.log("courseList是", this.courseList)
@@ -119,10 +115,11 @@ export default {
     },
     btnOK() {
       this.$refs.addCourseForm.validate().then(async() => {
-        const res = addCourse(addCourseForm)
+        const res = await addCourse(this.addCourseForm)
         console.log("添加课程的结果是", res);
       }).then(() => {
         this.$message('添加成功')
+        this.pageChange(1)
         this.dialogVisible = false
       })
     },
@@ -132,7 +129,7 @@ export default {
         courseName: '',
         studentIds: []
       },
-      this.$refs.infoForm.resetFields() // 重置方法
+      this.$refs.addCourseForm.resetFields() // 重置方法
       this.dialogVisible = false
     }
   }

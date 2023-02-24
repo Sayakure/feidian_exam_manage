@@ -7,9 +7,9 @@ const TimeOut = 3600
 const service = axios.create({
 //    设置基础地址
 // 环境变量 npm run dev  /api   /生产环境 npm run build  /prod-api
-  baseURL: process.env.VUE_APP_BASE_API,
+  // baseURL: process.env.VUE_APP_BASE_API,
   // baseURL: 'http://10.162.67.2',
-  // baseURL: "http://172.16.6.132:8081",
+  baseURL: "http://172.16.6.138:8081",
   timeout: 5000
 })
 // 请求拦截器
@@ -21,7 +21,7 @@ service.interceptors.request.use(config => {
       router.push('/login')
       return Promise.reject(new Error('token超时了'))
     }
-    config.headers.token = `${store.getters.token.token}`
+    config.headers.token = `${store.state.user.token}`
   }
   return config
 }, error => {
@@ -34,7 +34,6 @@ service.interceptors.response.use(response => {
 
   // success 变成code了，一会要查 数据结构也不一样，要改
   const { code, message, data } = response.data
-  // const { code, message, data } = response.data
   if (code == 200) {
     return data
   } else {

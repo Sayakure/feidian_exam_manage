@@ -1,4 +1,9 @@
 import request from '@/utils/request'
+export function teacherGetExam(id) {
+  return request({
+    url: `/exam/add/${id}`
+  })
+}
 /**
  * 发布考试
  */
@@ -15,7 +20,7 @@ export function publishExam(data) {
  */
 export function  getExam(id) {
   return request({
-    url: `/course/publish/question/${courseId}`
+    url: `/course/publish/question/${id}`
   })
 }
 

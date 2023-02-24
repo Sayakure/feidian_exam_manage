@@ -75,7 +75,7 @@ export default {
         // 校验规则
         // min   max  校验的字符串 指的是长度 校验的是数字 校验的大小
         password: [{ required: true, trigger: 'blur', message: '请输入密码' }, {
-          min: 6, max: 16, message: '密码长度在6-16位之间', trigger: 'blur'
+          min: 3, max: 16, message: '密码长度在6-16位之间', trigger: 'blur'
         }]
       },
       loading: false,
@@ -110,11 +110,13 @@ export default {
           // 表示校验通过
           this.loading = true
           try {
-            await this['user/login'](this.loginForm)
-
+            await this.$store.dispatch('user/login',this.loginForm)
+            // await this['user/login'](this.loginForm)
+            console.log("token", this.$store.getters.token.token);
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
-            const userInfo = this.$store.commit('user/getUserInfo')
+            console.log();
+            const userInfo = this.$store.dispatch('user/getUserInfo')
             console.log(userInfo)
           } catch (error) {
             this.$message(error)

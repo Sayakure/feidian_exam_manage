@@ -146,7 +146,7 @@ export default {
 
     const checkRepeat = (rule, value, callback) => {
       // value是否符合手机号格式
-      password2 === assignForm.password ? callback() : callback(new Error('手机号格式不正确'))
+      this.password2 === assignForm.password ? callback() : callback(new Error('两次输入的密码不相同'))
     }
     // validator 自定义校验函数
     // 可以自主的校验函数
@@ -214,7 +214,7 @@ export default {
           // 表示校验通过
           this.loading = true
           try {
-            await register(this.loginForm)
+            await register(this.assignForm)
             // 只要进行到这个位置 说明登录成功了 跳到主页
             this.$router.push('/')
           } catch (error) {

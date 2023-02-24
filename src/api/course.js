@@ -5,8 +5,8 @@ import request from '@/utils/request'
  */
 export function stuGetCourse(data) {
   return request({
-    url: '/course/join',
-    data
+    url: `/course/join`,
+    params: data
   })
 }
 /**
@@ -15,7 +15,7 @@ export function stuGetCourse(data) {
 export function teacherGetCourse(data) {
   return request({
     url: '/course/publish',
-    data
+    params: data
   })
 }
 /**
@@ -43,7 +43,7 @@ export function addCourseStu() {
 // 查看该课程下学生成绩
 export function checkStudentScore(id) {
   return request({
-    url: `/exam/add/${id}`
+    url: `/exam/add/${id}`,
   })
 }
 

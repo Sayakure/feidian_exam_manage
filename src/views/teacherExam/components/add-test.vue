@@ -1,8 +1,27 @@
 <template>
+import { request } from 'http';
   <el-dialog  :modal=false title="增加试题" :visible="showDialog" @close="btnCancel">
     <el-form ref="addForm" :model="addData" label-width="120px" :rules="rules">
-      <el-form-item label="题目详情" prop="info">
-        <el-input v-model="addData.info" type="textarea" :rows="12" style="width:90%" />
+      <el-form-item label="题目" >
+        <el-input v-model="addData.context" />
+      </el-form-item>
+      <el-form-item label="答案" >
+        <el-input v-model="addData.answer" />
+      </el-form-item>
+      <el-form-item label="选项A" >
+        <el-input v-model="addData.option_a" />
+      </el-form-item>
+      <el-form-item label="选项B" >
+        <el-input v-model="addData.option_b" />
+      </el-form-item>
+      <el-form-item label="选项C" >
+        <el-input v-model="addData.option_c" />
+      </el-form-item>
+      <el-form-item label="选项D" >
+        <el-input v-model="addData.option_d" />
+      </el-form-item>
+      <el-form-item label="分值" >
+        <el-input v-model="addData.option_a" placeholder="请填写分值" />
       </el-form-item>
     </el-form>
     <!-- 放置居中的按钮 -->
@@ -27,10 +46,18 @@ export default {
   data() {
     return {
       addData: {
-        info: ''
+        coursrId: '',
+        question_type: 'x',
+        context: '',
+        answer: '',
+        option_a: '',
+        option_b: '',
+        option_c: '',
+        option_d: '',
+        point: ''
       },
       rules: {
-        info: [{ required: true, message: '题目不能为空', trigger: 'blur' }, { min: 1, max: 1000, message: '题目主体不能超过1000个字符', trigger: blur }]
+        point:[{ requited: true, trigger: 'blur',message: '年龄不能为空'}, { type: 'number', message: '年龄必须为数字'}]
       }
     }
   },

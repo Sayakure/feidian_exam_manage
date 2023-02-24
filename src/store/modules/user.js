@@ -28,7 +28,7 @@ const actions = {
     const result = await login(data)
     console.log(data);
     // result就是token
-    context.commit('setToken', result)
+    context.commit('setToken', result.token)
     // context.commit('setToken', result.token)
     setTimeStamp()
   },

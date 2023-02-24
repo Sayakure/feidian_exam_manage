@@ -3,7 +3,7 @@
   <div class="goTest-container">
     <PublishTest ref="publish"/>
     <ModifyExam ref="modify"/>
-    <TestInfo @show="show()" @showDialog="showDialog()" :show-test-data.sync="showTestData" class="testinfo"/>
+    <TestInfo @show="show" @showDialog="showDialog" class="testinfo"/>
   </div>
 </template>
 
@@ -18,11 +18,12 @@ export default {
     }
   },
   methods: {
-    show() {
-      this.$refs.modify.openEdit()
+    show(id) {
+      console.log('@@@@@@', id);
+      this.$refs.modify.openEdit(id)
     },
-    showDialog() {
-      this.$refs.publish.showDialog()
+    showDialog(id) {
+      this.$refs.publish.showDialog(id)
     }
   }
 }

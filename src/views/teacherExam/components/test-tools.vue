@@ -2,7 +2,13 @@
   <div class="item">
     <el-row class="test-item" :span="12" type="flex" justify="space-between" align="middle">
       <el-col style="width: 80%;">
-        <div class="test-name">试题试题试题</div>
+        <div class="test-name">{{ question.context }}</div>
+        <el-radio-group v-model="radio">
+          <el-radio :label="1">A: {{ question.optionA }}</el-radio>
+          <el-radio :label="2">B: {{ question.optionB }}</el-radio>
+          <el-radio :label="3">C: {{ question.optionC }}</el-radio>
+          <el-radio :label="4">D: {{ question.optionD }}</el-radio>
+        </el-radio-group>
       </el-col>
       <el-col :span="2" class="command">
         <el-dropdown @command="operateTests">
@@ -21,10 +27,17 @@
 <script>
 // import { getTests } from '@/api/test'
 export default {
+  props:{
+    question: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       tests: {},
-      editArea: ''
+      editArea: '',
+      radio: ''
     }
   },
   created() {

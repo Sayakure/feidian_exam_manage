@@ -1,6 +1,5 @@
 <template>
   <div >
-    <button @click="demo()">测试</button>
     <div class="show-course-container">
       <div slot="header" class="clearfix">
       <span class="title" style="font-size: 25px;color: #4171F8;line-height: 40px;">学生全部课程</span>
@@ -10,7 +9,7 @@
       </div>
     </div>
     <div class="test-message">
-      <CoursrInfo v-for="i in 5"/>
+      <CoursrInfo v-for="course in courseList" :course="course"/>
       <!-- <CoursrInfo v-for="item in courseList" :key="item.coursrId" :courseInfo="item"/> -->
       <el-pagination
       @current-change="pageChange"
@@ -46,17 +45,14 @@ export default {
       page: {
         page: 1,
         pageSize: 5,
-        total: 50
+        total: 0
       }
     }
   },
   created() {
-    this.pageChange()
+    this.pageChange(1)
   },
   methods: {
-    demo() {
-      console.log(queryInfo.pageNum);
-    },
     search(course) {
       console.log("传递到父组件的数据是", course);
       this.page.total = course.total
@@ -67,14 +63,14 @@ export default {
       this.page.page = page
       this.query.pageNum = page
       console.log('page', page)
-      console.log(this.query)
       const res = await stuGetCourse(this.query)
+      this.page.total = res.total
       this.courseList = res.rows
       console.log("学生请求到的课程数据是：", this.courseList)
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: 'smooth'
+      // })
     }
   }
 }

@@ -3,16 +3,16 @@
   <div class="course" style="margin-bottom: 15px;">
     <el-card >
       <div class="course-info-contain">
-        <el-collapse v-model="activeNames" class="collapse">
+        <el-collapse class="collapse">
         <el-collapse-item name="1">
           <template #title>
             <div class="info-left">
             <!-- <span>课程号：{{ courseInfo.courseId }}</span>
             <span>课程名：{{ courseInfo.courseName}}</span>
             <span>授课老师：{{ courseInfo.teacherName}}</span> -->
-            <span>课程号：</span>
-            <span>课程名：</span>
-            <span>授课老师：</span>
+            <div class="info">课程号：{{ course.courseId}}</div>
+            <div class="info">课程名：{{ course.courseName}}</div>
+            <div class="info">授课老师：{{ course.teacherName }}</div>
           </div>
         <div class="info-right">
             <el-button class="check" type="primary" @click="showStuTest()">查看所有成绩</el-button>
@@ -26,12 +26,12 @@
             >
             <el-table-column
               fixed
-              prop= "name"
+              prop= "userName"
               label="姓名"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="status"
+              prop="state"
               label="考试情况"
               width="180">
             </el-table-column>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-
+import { checkStudentScore } from '@/api/course'
 export default {
     props: {
       // {
@@ -60,37 +60,26 @@ export default {
       //   "userId": "13",
       //   "userName": "测试"
       // }
-      courseInfo: {
-
+      course: {
+        type: Object,
+        default: () => {}
       }
     },
     data() {
       return {
         drawer: false,
         direction: 'ltr',
-        tableData: [{
-          name: '王小虎',
-          status: '2016-05-02',
-          score: '60'
-        }, {
-          name: '王小虎',
-          status: '2016-05-04',
-          score: '59'
-        }, {
-          name: '王小虎',
-          status: '2016-05-01',
-          score: '60'
-        }, {
-          name: '王小虎',
-          status: '2016-05-03',
-          score: '99'
-        }]
+        tableData: []
       }
     },
     methods: {
-      showStuTest() {
+      async showStuTest() {
         this.drawer = true
         console.log(this.drawer);
+        const res = await checkStudentScore(this.course.courseId)
+        // console.log("!1!", this.$store.state.user.token);
+        console.log('ewss',res[0]);
+        this.tableData = res
       }
     }
 }
@@ -116,7 +105,11 @@ export default {
   top: 4px;
 }
 .info-left {
+  display: flex;
   position: absolute;
   left: 0;
+}
+.info {
+  margin-right: 30px
 }
 </style>

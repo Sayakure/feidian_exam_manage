@@ -1,12 +1,10 @@
 <template>
   <div class="dashboard-container">
-    <!-- <Test /> -->
-    <button @click="demo()">测试</button>
+    <button @click="demo()">册数</button>
     <el-card style="padding: 20px 0">
       <el-row type="flex" justify="space-between" style="width:80%;padding-top: 15px;">
         <el-col>
           <div class="avatar">
-            <!-- <ImageUpload ref="staffPhoto" /> -->
             <img src="@/assets/common/img.jpeg" alt="">
             <el-button type="primary" size="small" style="margin-left: 49px; " @click.native="editInfo()">修改个人信息</el-button>
           </div>
@@ -31,26 +29,25 @@
         </el-col>
       </el-row>
     </el-card>
-    <EditInfo :show-dialog.sync="showDialog" v-if="showDialog"/>
+    <EditInfo :show-dialog.sync="showDialog" v-if="showDialog" @edit="edit"/>
     <div class="others">
       <ExamCalender />
       <div class="small-items">
         <Helpers />
-        <EchartPersonal />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EchartPersonal from './components/echart-personal.vue'
+import { getUserInfo } from '@/api/user'
 import Helpers from './components/helpers.vue'
 import Test from './components/test.vue'
 import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
 export default {
   name: 'Dashboard',
-  components: { EditInfo, ExamCalender, Test, Helpers, EchartPersonal },
+  components: { EditInfo, ExamCalender, Test, Helpers},
   data() {
     return {
       showDialog: false,
@@ -64,34 +61,35 @@ export default {
       }
     }
   },
-  watch: {
-    "$store.state.userInfo": {
-      handler(newVal,oldVal) {
-        console.log('新', newVal);
-        console.log('旧', oldval);
-
-        setKnownInfo()
-      },
-      immediate: true
-    }
-  },
   created() {
+    this.demo()
+    this.getInfo()
+  },
+  mounted() {
     this.getInfo()
   },
   methods: {
     demo() {
+      this.getInfo()
     },
-    getInfo() {
-      this.$store.dispatch('user/getUserInfo')
-      const res = this.$store.state.user.userInfo
-      console.log("@@用户信息", this.$store.state.user.userInfo)
+    edit(res) {
+      console.log('res', res);
+      this.info.college = res.college
+      this.info.name = res.name
+      this.info.phonenumber = res.phonenumber
+      this.info.sex = res.sex
+    },
+    async getInfo() {
+      const res = await getUserInfo()
+      // this.$store.dispatch('user/getUserInfo')
+      console.log("@@用户信息11", res)
       // this.info = res
-      this.college = res.college
-      this.name = res.name
-      this.phonenumber = res.phonenumber
-      this.role = res.role
-      this.sex = res.sex
-      this.userId = res.userId
+      this.info.college = res.college
+      this.info.name = res.name
+      this.info.phonenumber = res.phonenumber
+      this.info.role = res.role
+      this.info.sex = res.sex
+      this.info.userId = res.userId
     },
     editInfo() {
       this.showDialog = true

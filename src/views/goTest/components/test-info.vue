@@ -1,9 +1,10 @@
 <template>
   <el-card style="margin-top: 30px;">
+    <button @click="demo">测试</button>
     <div class="title" style="margin-bottom: 50px;font-size: 25px;color: #4171F8;">考试详情</div>
     <div class="test-message">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="subject" label="考试科目" style="width:50%" />
+      <el-table :data="info" style="width: 100%">
+        <el-table-column prop="courseName" label="考试科目" style="width:50%" />
         <el-table-column prop="status" label="考试状态" style="width:50%" />
         <el-table-column prop="score" label="考试分数" style="width:50%" />
         <el-table-column>
@@ -19,6 +20,10 @@
 <script>
 export default {
   props: {
+    info: {
+      type:Array,
+      default: []
+    }
   },
   data() {
     return {
@@ -31,6 +36,9 @@ export default {
     }
   },
   methods: {
+    demo() {
+      console.log(this.info);
+    },
     goTest() {
       console.log('去考试')
       this.$emit('update:showDialog', true)

@@ -76,3 +76,12 @@
 .nest-menu {
   background-color: #4070f6;
 }
+
+.is-active {
+  svg {
+    color: #fff;
+  }
+  span {
+    color: #fff;
+  }
+}

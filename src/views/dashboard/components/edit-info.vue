@@ -5,13 +5,13 @@
         <el-input v-model="infoData.name" style="width:80%" placeholder="姓名长度为1-10个字符" />
       </el-form-item>
       <el-form-item label="性别" prop="gender">
-        <el-select v-model="infoData.gender" style="width: 80%;" placeholder="请选择性别">
+        <el-select v-model="infoData.sex" style="width: 80%;" placeholder="请选择性别">
           <el-option label="男" value="男" />
           <el-option label="女" value="女" />
         </el-select>
       </el-form-item>
-      <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="infoData.mobile" style="width:80%" />
+      <el-form-item label="手机号" prop="phonenumber">
+        <el-input v-model="infoData.phonenumber" style="width:80%" />
       </el-form-item>
       <el-form-item label="所在学院" prop="college">
         <el-input v-model="infoData.college" style="width:80%" />
@@ -52,7 +52,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '姓名不能为空', trigger: 'blur' }, { min: 1, max: 10, message: '姓名长度为1-10个字符', trigger: blur }],
-        mobile: [{ required: true, message: '手机号不能为空', trigger: 'blur' }, {
+        phonenumber: [{ required: true, message: '手机号不能为空', trigger: 'blur' }, {
           trigger: 'blur',
           validator: checkMobile
         }],
@@ -63,12 +63,24 @@ export default {
   created() {
     this.setKnownInfo()
   },
+  computed: {
+    userInfo() {
+      return this.$store.state.userInfo
+    }
+  },
+  watch: {
+    userInfo(newVal, oldVal) {
+        console.log('新', newVal);
+        console.log('旧', oldVal);
+        setKnownInfo()
+      }
+  },
   methods: {
     setKnownInfo() {
       console.log("编辑信息时接受到",this.$store.getters.userInfo);
       // 设置
       const res = this.$store.getters.userInfo
-      this.infoData.name = res.company
+      this.infoData.name = res.name
       this.infoData.sex = res.sex
       this.infoData.phonenumber = res.phonenumber
       this.infoData.college = res.college
@@ -86,9 +98,12 @@ export default {
     btnOK() {
       this.$refs.infoForm.validate().then(async() => {
         setUserInfo(this.infoData)
+        this.$emit('edit', this.infoData)
+        this.$store.state.user.userInfo = this.infoData
         // 重置个人信息
-        const res = await this.$store.commit('user/getUserInfo')
+        const res = await this.$store.dispatch('user/getUserInfo')
         console.log('编辑后的个人信息', res);
+        this.$message.success('恭喜，修改成功')
       }).then(() => {
         this.$emit('update:showDialog', false)
       })

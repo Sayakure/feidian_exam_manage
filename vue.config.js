@@ -46,8 +46,8 @@ module.exports = {
       // localhost:8888/api/user  => http://ihrm-java.itheima.net/user
 
       '/api': {
-        target: 'http://ihrm.itheima.net/', // 要代理的目标地址
-        // target: 'http://172.16.6.132',
+        // target: 'http://ihrm.itheima.net/', // 要代理的目标地址
+        target: 'http://172.16.6.138',
         changeOrigin: true ,// 是否跨域
         // localhost:8888/api/user => 触发代理 =>
         //  http://www.baidu.com/user  想要这种
