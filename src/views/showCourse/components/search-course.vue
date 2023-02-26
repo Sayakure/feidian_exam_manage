@@ -2,6 +2,7 @@
   <div class="search-course-container">
     <el-input class="search-input" v-model="searchText" placeholder="请输入所查询课程号或课程名">
     </el-input>
+
     <el-button slot="suffix" @click="search()" icon="el-icon-search" style="margin-right: 10px;margin-left: -5px;"></el-button>
 
     <el-radio v-model="searchBy" label="courseName" >课程名称</el-radio>
@@ -18,11 +19,10 @@ data() {
     searchText : '',
     searchInfo: {
       pageNum: '1',
-      pageSize: '5',
+      pageSize: '100',
       courseId: '',
       courseName: ''
     },
-    course: {}
   }
 },
 created() {
@@ -38,11 +38,18 @@ methods: {
       this.searchInfo.courseId = this.searchText
     }
     console.log("请求查询的信息是", this.searchInfo);
-    const res = await stuGetCourse(this.searchInfo)
+    // const res = await stuGetCourse(this.searchInfo)
+    this.$emit('search', this.searchInfo)
     this.searchText = ""
-    this.course = res
-    this.$emit('search', course)
-  },
+    this.searchInfo = {
+      pageNum: '1',
+      pageSize: '100',
+      courseId: '',
+      courseName: ''
+    }
+    // this.course = res
+    // console.log("@@@@@", this.course);
+  }
 }
 }
 </script>

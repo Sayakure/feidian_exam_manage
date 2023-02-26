@@ -1,9 +1,9 @@
 <template>
   <div class="item">
     <el-row class="test-item" :span="12" type="flex" justify="space-between" align="middle">
-      <el-col style="width: 80%;">
+        <el-col style="width: 80%;">
         <div class="test-name">{{ question.context }}</div>
-        <el-radio-group v-model="radio">
+        <el-radio-group v-model="radio" v-if="question.questionType === 'x'">
           <el-radio :label="1">A: {{ question.optionA }}</el-radio>
           <el-radio :label="2">B: {{ question.optionB }}</el-radio>
           <el-radio :label="3">C: {{ question.optionC }}</el-radio>
@@ -16,7 +16,7 @@
           <span>操作<i class="el-icon-arrow-down" /></span>
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="edit">编辑试题</el-dropdown-item>
-              <el-dropdown-item command="del">删除试题</el-dropdown-item>
+              <el-dropdown-item  command="delete">删除试题</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -25,16 +25,21 @@
 </template>
 
 <script>
-// import { getTests } from '@/api/test'
+import { deleteExam } from '@/api/exam';
 export default {
   props:{
     question: {
       type: Object,
       default: () => {}
+    },
+    courseId: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
+      show: true,
       tests: {},
       editArea: '',
       radio: ''
@@ -44,6 +49,9 @@ export default {
     this.getTests()
   },
   methods: {
+    delete() {
+      console.log(this.question);
+    },
     getTests() {
       // let res = await getTests()
       console.log('获取试题')
@@ -52,16 +60,20 @@ export default {
       if (type === 'edit') {
         // 编辑
         console.log('edit')
-        this.$emit('editTest') // 点击编辑 传出要编辑的节点
       } else {
-        // 删除
+        console.log(this.question,this.courseId);
         this.$confirm('您是否确定要删除该试题吗', { confirmButtonText: '确定', cancelButtonText: '取消' }).then(() => {
         //   return delDepartments(this.treeNode.id)
+        const data = {
+          "courseId": this.courseId,
+          "questionId": this.question.questionId
+        }
+        deleteExam(data)
         }).then(() => {
           // 此时已经确定
           // 应该告诉父组件 更新数据
-          this.$emit('delDepts')
-          this.$message.success('删除试题成功')
+          this.$emit('update')
+          this.$message.success('删除成功')
         })
       }
     }

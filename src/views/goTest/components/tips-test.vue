@@ -12,24 +12,34 @@
 </template>
 
 <script>
-import router from '@/router'
 export default {
   props: {
     showDialog: {
       type: Boolean,
       default: false
+    },
+    exam: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      show: false
     }
   },
   methods: {
     close() {
-      this.$emit('update:showDialog', false)
+      this.$emit('close')
     },
     goTest() {
-      this.$emit('getTestId')
-      const id = 111
+      this.showDialog = false
+      console.log('考试ID是：', this.exam);
       // 请求考试信息
-      const routerUrl = router.resolve({ path: '/examTable', query: { id: JSON.stringify(id) }})
-      console.log(router.resolve)
+      sessionStorage.setItem('exam', JSON.stringify(this.exam))
+      this.$store.commit('examTable/setExam', this.exam)
+      console.log("#####", this.$store.state.examTable.exam);
+      const routerUrl = this.$router.resolve({ path: '/examTable'})
       window.open(routerUrl.href, '_blank')
     }
   }

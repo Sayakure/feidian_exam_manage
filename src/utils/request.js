@@ -9,7 +9,7 @@ const service = axios.create({
 // 环境变量 npm run dev  /api   /生产环境 npm run build  /prod-api
   // baseURL: process.env.VUE_APP_BASE_API,
   // baseURL: 'http://10.162.67.2',
-  baseURL: "http://172.16.6.138:8081",
+  baseURL: "http://121.4.111.212:8081",
   timeout: 5000
 })
 // 请求拦截器

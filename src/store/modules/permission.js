@@ -1,27 +1,67 @@
+import router from '@/router'
 import { constantRoutes } from '@/router'
-// 请求权限
-// import { getPermissionRouter } from '@/api/user'
-
-// , asyncRoutes
+import goTest from '@/router/modules/goTest'
+import showCourse from '@/router/modules/showCourse'
+import teacherExam from '@/router/modules/teacherExam'
+import teacherPublish from '@/router/modules/teacherPublish'
+console.log(constantRoutes)
 const state = {
-  routes: constantRoutes
+  routes: [...constantRoutes],
+  role: '',
 }
 const mutations = {
   setRoutes(state, newRoutes) {
-    state.routes = [...constantRoutes, ...newRoutes]
-  }
+    console.log("*******", newRoutes);
+    state.routes = [...newRoutes]
+    console.log(state.routes)
+    router.addRoutes([goTest])
+    console.log(router)
+  },
+  getRoutes(state) {
+    return state.routes
+  },
+  removeRoutes(state) {
+    state.routes = ""
+  },
+  setRole(state, role) {
+    console.log("!!!", role);
+    state.role = role
+  },
+  getRole(state) {
+    return state.role
+  },
+  removeRole(state, role) {
+    state.role = ""
+  },
 }
 const actions = {
   // 筛选权限路由也要改
-  // async filterRoutes(context) {
+  filterRoutes(context) {
+    console.log(context);
+    const role = context.state.role
+    console.log("role", role);
+    let menus = []
+    if (role === "学生") {
+      menus.push(goTest)
+      console.log('pushGo');
+      menus.push(showCourse)
+      console.log('@@@@', menus);
+    }
+    if (role === "老师") {
+      menus.push(teacherExam)
+      menus.push(teacherPublish)
+      console.log('@@@@', menus);
+    }
+    console.log('!~!~!', context.state.routes,menus);
+    context.commit('setRoutes', menus)
+    return menus
     // const routes = []
     // await menus = getPermissionRouter()
     // menus.forEach(key => {
     //   routes.push(...asyncRoutes.filter(item => item.name === key))
     // })
-    // context.commit('setRoutes', routes)
     // return routes
-  // }
+  }
 }
 
 export default {

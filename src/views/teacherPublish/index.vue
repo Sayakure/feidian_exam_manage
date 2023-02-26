@@ -34,7 +34,7 @@
           <el-input v-model="addCourseForm.courseName" placeholder="请填入课程名称"></el-input>
         </el-form-item>
         <el-form-item label="参课学生：">
-          <el-checkbox-group v-model="addCourseForm.studentIds" :min="1">
+          <el-checkbox-group v-model="addCourseForm.studentIds">
             <el-checkbox v-for="student in students" :label="student.userId">{{ student.name }}</el-checkbox>
         </el-checkbox-group>
         </el-form-item>
@@ -74,12 +74,12 @@ export default {
       courseList: [],
       query:{
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 1000,
       },
       page: {
         page: 1,
         pageSize: 5,
-        total: 50
+        total: 0
       }
     }
   },
@@ -108,6 +108,7 @@ export default {
       const res = await teacherGetCourse(this.query)
       this.courseList = res.rows
       console.log("老师请求到的课程数据是：", this.courseList)
+      this.page.total = res.total-0
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -118,8 +119,8 @@ export default {
         const res = await addCourse(this.addCourseForm)
         console.log("添加课程的结果是", res);
       }).then(() => {
-        this.$message('添加成功')
         this.pageChange(1)
+        this.$message.success('添加成功')
         this.dialogVisible = false
       })
     },

@@ -2,15 +2,15 @@
 // import { login, getUserInfo, getUserDetailById } from '@/api/user'
 // import { resetRouter } from '@/router'
 const state = {
-  examId: ''
+  exam: ''
 }
 const mutations = {
   // 设置token的mutations
-  setExamId(state, id) {
-    state.id = id
+  setExam(state, exam) {
+    state.exam = exam
   },
   removeExamId(state) {
-    state.id = ''
+    state.exam = ''
   }
 }
 const actions = {

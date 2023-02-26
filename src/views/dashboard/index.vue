@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-container">
-    <button @click="demo()">册数</button>
     <el-card style="padding: 20px 0">
       <el-row type="flex" justify="space-between" style="width:80%;padding-top: 15px;">
         <el-col>
@@ -42,12 +41,11 @@
 <script>
 import { getUserInfo } from '@/api/user'
 import Helpers from './components/helpers.vue'
-import Test from './components/test.vue'
 import ExamCalender from './components/exam-calender.vue'
 import EditInfo from './components/edit-info.vue'
 export default {
   name: 'Dashboard',
-  components: { EditInfo, ExamCalender, Test, Helpers},
+  components: { EditInfo, ExamCalender, Helpers},
   data() {
     return {
       showDialog: false,
@@ -56,21 +54,17 @@ export default {
         name: '',
         phonenumber: '',
         college: '',
-        avatar: '',
         sex: '',
       }
     }
   },
   created() {
-    this.demo()
-    this.getInfo()
-  },
-  mounted() {
     this.getInfo()
   },
   methods: {
     demo() {
-      this.getInfo()
+      this.$router.addRoutes('/goTest')
+      console.log(111);
     },
     edit(res) {
       console.log('res', res);
@@ -81,13 +75,12 @@ export default {
     },
     async getInfo() {
       const res = await getUserInfo()
-      // this.$store.dispatch('user/getUserInfo')
       console.log("@@用户信息11", res)
-      // this.info = res
       this.info.college = res.college
       this.info.name = res.name
       this.info.phonenumber = res.phonenumber
       this.info.role = res.role
+      this.$store.commit('permission/setRole', res.role)
       this.info.sex = res.sex
       this.info.userId = res.userId
     },

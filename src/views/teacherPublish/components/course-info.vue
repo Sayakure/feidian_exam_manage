@@ -15,7 +15,7 @@
             <div class="info">授课老师：{{ course.teacherName }}</div>
           </div>
         <div class="info-right">
-            <el-button class="check" type="primary" @click="showStuTest()">查看所有成绩</el-button>
+            <el-button class="check" type="primary" @click="showStuTest(course.courseId)">查看所有成绩</el-button>
         </div>
         </template>
           <div class="drawer-item">
@@ -31,7 +31,7 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="state"
+              prop="pass"
               label="考试情况"
               width="180">
             </el-table-column>
@@ -73,12 +73,28 @@ export default {
       }
     },
     methods: {
-      async showStuTest() {
+      async search(searchInfo) {
+      const res = await stuGetCourse(searchInfo)
+      console.log("传递到父组件的数据是", res);
+      // this.page.total = course.total
+      // this.courseList = course.rows
+      this.courseList = res.rows
+      console.log("courseList是", this.courseList)
+    },
+      async showStuTest(id) {
         this.drawer = true
         console.log(this.drawer);
-        const res = await checkStudentScore(this.course.courseId)
-        // console.log("!1!", this.$store.state.user.token);
-        console.log('ewss',res[0]);
+        const res = await checkStudentScore(id)
+        res.forEach(item => {
+          if(item.pass == 1) {
+            item.pass = "已考完"
+          } else if (item.pass == 0) {
+            item.pass = "未考试"
+          } else {
+            item.pass = "考试中断"
+          }
+        });
+        console.log('ewss',res);
         this.tableData = res
       }
     }

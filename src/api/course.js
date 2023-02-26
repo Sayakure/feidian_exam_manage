@@ -5,7 +5,7 @@ import request from '@/utils/request'
  */
 export function stuGetCourse(data) {
   return request({
-    url: `/course/join`,
+    url: `/exam/check`,
     params: data
   })
 }

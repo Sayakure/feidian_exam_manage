@@ -2,12 +2,12 @@
   <div class="exam-table">
     <el-row>
       <el-col>
-        <div class="exam-title">考试题目</div>
+        <div class="exam-title">课程ID: {{ info.courseId }}</div>
       </el-col>
       <el-col>
         <div class="exam-info">
-          <div class="exam-subject">考试科目</div>
-          <div class="exam-time">考试时间</div>
+          <div class="exam-subject">考试名称： {{ info.examName }}</div>
+          <div class="exam-time" style="margin-top: 50px;">最后更新时间:  {{ info.updateTime }}</div>
         </div>
       </el-col>
       <el-col>
@@ -18,12 +18,17 @@
 </template>
 
 <script>
-import store from '@/store'
+import { getExamQuestion } from '@/api/exam'
 export default {
   props: {
     isExam: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      info: {}
     }
   },
   created() {
@@ -33,10 +38,17 @@ export default {
     examMaking() {
       this.$emit('update:isExam', true)
     },
-    getExamInfo() {
-      console.log(store.state.examTable)
-      // 得到id后请求信息，请求题目
-      // 渲染信息，传出题
+    async getExamInfo() {
+      const exam = JSON.parse(sessionStorage.getItem('exam'))
+      const query = {
+        courseId: exam.courseId,
+        examId: exam.examId,
+        state: exam.state
+      }
+      const res = await getExamQuestion(query)
+      this.info = res.exam
+      console.log(res)
+
     }
   }
 }

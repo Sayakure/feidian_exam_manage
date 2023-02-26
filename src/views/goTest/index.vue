@@ -1,17 +1,14 @@
-<!-- eslint-disable vue/valid-template-root -->
 <template>
   <div class="goTest-container">
     <TestInfo :show-dialog.sync="showDialog" :info="info" />
-    <TipsTest :show-dialog.sync="showDialog" :show-test-data.sync="showTestData" @getTestId="getTestId" />
   </div>
 </template>
 
 <script>
-import { stuGetCourse } from '@/api/course'
-import TipsTest from './components/tips-test.vue'
+import { studentCheckExam } from '@/api/exam'
 import TestInfo from './components/test-info.vue'
 export default {
-  components: { TestInfo, TipsTest },
+  components: { TestInfo },
   data() {
     return {
       info: [],
@@ -27,12 +24,19 @@ export default {
   },
   methods: {
     async getData() {
-      const res = await stuGetCourse(this.query)
+      const res = await studentCheckExam(this.query)
       this.info = res.rows 
-    },
-    getTestId() {
-      // 清空桌面
-      this.showDialog = false
+      console.log("course rows", res);
+      this.info.forEach((item) => {
+        if (item.pass == 0) {
+          item.pass = "未考试"
+        } 
+        else if (item.pass == 1) {
+          item.pass = "已考试"
+        } else{
+          item.pass = "考试中断"
+        }
+      })
     }
   }
 }

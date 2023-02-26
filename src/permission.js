@@ -5,16 +5,29 @@ import 'nprogress/nprogress.css'
 
 // 前置守卫
 const whileList = ['/login', '/404', '/assign']
-router.beforeEach(async(to, from, next) => {
+router.beforeEach((to, from, next) => {
   NProgress.start() // 开启进度条
   // next是一个必须执行的钩子 不执行就卡主了
+  console.log(store.state.permission)
   if (store.getters.token) {
+    if(store.state.permission.routes.length !== 5) {
+      console.log(store.state.permission.routes);
+      console.log('yes')
+      next()
+    } else {
+      console.log('no');
+      console.log(store.state.permission.routes)
+      // router.addRoutes('goTest')
+      store.dispatch('permission/filterRoutes')
+      console.log(store.state.permission.routes)
+      // router.addRoutes(store.state.permission.routes)
+    }
     if (to.path === '/login') {
       next('/')
     } else {
       // 在vuex中没有用户资料才需要获取用户信息
-      if (!store.state.user.token) {
-        // await store.dispatch('user/getUserInfo')
+      if (!store.state.user.userInfo) {
+        console.log("store中没有用户信息");
 
         // 底下的不知道是什么时候写的了，反正改成
         // const routes = await store.dispatch('permission/filterRoutes', roles.menus)
@@ -24,9 +37,9 @@ router.beforeEach(async(to, from, next) => {
         
         // console.log(store.dispatch('user/getUserInfo'))
         // const result =
-        // const routes = await store.dispatch('permission/filterRoutes', result.roles.menu)
-        // console.log(routes, 111)
-        // router.addRoutes(...routes, { path: '*', redirect: '/404', hidden: true })
+        const routes = store.commit('permission/getRoutes')
+        console.log(routes, 111)
+        router.addRoutes(...routes, { path: '*', redirect: '/404', hidden: true })
         next(to.path)
       } else {
         next()

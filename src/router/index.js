@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 动态路由的大菜单
-import allCourse from './modules/allCourse'
-import allExam from './modules/allExam'
-
 import examTable from '@/store/modules/examTable'
-
+import goTest from './modules/goTest'
+import showCourse from './modules/showCourse'
+import teacherExam from './modules/teacherExam'
+import teacherPublish from './modules/teacherPublish'
 
 Vue.use(Router)
 
@@ -69,16 +69,17 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
     }]
-  },
-  { path: '*', redirect: '/404', hidden: true }
+  }
+  
+]
+const asyncMenu = [
+  goTest,
+  showCourse,
+  teacherExam,
+  teacherPublish
 ]
 
 
-//动态路由的menu总和
-export const asyncMenu = [
-  allCourse,
-  allExam
-]
 
 // 测试阶段才用的
 const createRouter = () => new Router({

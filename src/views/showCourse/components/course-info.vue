@@ -9,12 +9,7 @@
         <div class="info">课程名：{{ course.courseName}}</div>
         <div class="info">授课老师：{{ course.teacherName}}</div>
       </div>
-  
-      <div class="info-right">
-        <span style="margin-right: 15px;">考试状态</span>
-        <span>查看考试分数</span>
       </div>
-    </div>
   </el-card>
 </template>
 

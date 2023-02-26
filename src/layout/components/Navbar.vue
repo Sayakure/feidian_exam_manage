@@ -58,6 +58,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
+      this.$store.state.user.token = ""
       this.$router.push(`/login`)
     }
   }

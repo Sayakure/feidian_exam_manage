@@ -1,7 +1,20 @@
 import request from '@/utils/request'
-export function teacherGetExam(id) {
+
+/**
+ * 查看试题
+ */
+export function checkQuestion(id) {
   return request({
-    url: `/exam/add/${id}`
+    url: `/course/publish/question/${id}`
+  })
+}
+/**
+ * 学生查看考核
+ */
+export function studentCheckExam(data) {
+  return request({
+    url: '/exam/check',
+    params: data
   })
 }
 /**
@@ -16,18 +29,22 @@ export function publishExam(data) {
 }
 
 /**
- * 查看试题
+ * 加载考试题目
  */
-export function  getExam(id) {
+export function getExamQuestion(data) {
   return request({
-    url: `/course/publish/question/${id}`
+    url: '/exam/check/question',
+    params: data
   })
 }
+
+
+
 
 /**
  * 增加考题
  */
-export function addExam(data) {
+export function addQuestion(data) {
   return request({
     url: '/course/publish/question',
     method: 'post',
@@ -42,7 +59,7 @@ export function deleteExam(data) {
   return request({
     url: '/course/publish/question',
     method: 'delete',
-    data
+    params: data
   })
 }
 
@@ -57,15 +74,6 @@ export function editExam(data) {
   })
 }
 
-/**
- * 加载考试题目
- */
-export function getExamQuestion(data) {
-  return request({
-    url: '/exam/check/question',
-    data
-  })
-}
 
 /**
  * 学生中途退出

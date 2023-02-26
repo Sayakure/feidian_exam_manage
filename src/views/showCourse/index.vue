@@ -5,7 +5,7 @@
       <span class="title" style="font-size: 25px;color: #4171F8;line-height: 40px;">学生全部课程</span>
       </div>
       <div class="right-nav">
-        <SearchCourse @search="search(course)"/>
+        <SearchCourse @search="search"/>
       </div>
     </div>
     <div class="test-message">
@@ -14,7 +14,7 @@
       <el-pagination
       @current-change="pageChange"
       layout="prev, pager, next"
-      :total="50"
+      :total= "page.total"
       class="pagination"
       >
     </el-pagination>
@@ -30,21 +30,14 @@ export default {
   components: { CoursrInfo, SearchCourse },
   data() {
     return {
-      // {
-      //   "courseId": "1",
-      //   "courseName": "C++程序测试",
-      //   "teacherName": "test2",
-      //   "userId": "13",
-      //   "userName": "测试"
-      // }
       courseList: [],
       query:{
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 100,
       },
       page: {
         page: 1,
-        pageSize: 5,
+        pageSize: 100,
         total: 0
       }
     }
@@ -53,10 +46,12 @@ export default {
     this.pageChange(1)
   },
   methods: {
-    search(course) {
-      console.log("传递到父组件的数据是", course);
-      this.page.total = course.total
-      this.courseList = course.rows
+    async search(searchInfo) {
+      const res = await stuGetCourse(searchInfo)
+      console.log("传递到父组件的数据是", res);
+      // this.page.total = course.total
+      // this.courseList = course.rows
+      this.courseList = res.rows
       console.log("courseList是", this.courseList)
     },
     async pageChange(page) {
@@ -64,7 +59,7 @@ export default {
       this.query.pageNum = page
       console.log('page', page)
       const res = await stuGetCourse(this.query)
-      this.page.total = res.total
+      this.page.total = res.total - 0
       this.courseList = res.rows
       console.log("学生请求到的课程数据是：", this.courseList)
       // window.scrollTo({

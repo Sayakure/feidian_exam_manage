@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { setUserInfo } from '@/api/user'
+import { setUserInfo , getUserInfo } from '@/api/user'
 export default {
   props: {
     showDialog: {
@@ -76,10 +76,11 @@ export default {
       }
   },
   methods: {
-    setKnownInfo() {
+     async setKnownInfo() {
+      const res = await getUserInfo()
       console.log("编辑信息时接受到",this.$store.getters.userInfo);
       // 设置
-      const res = this.$store.getters.userInfo
+      // const res = this.$store.getters.userInfo
       this.infoData.name = res.name
       this.infoData.sex = res.sex
       this.infoData.phonenumber = res.phonenumber

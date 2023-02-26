@@ -106,18 +106,19 @@ export default {
     // 登录
     handleLogin() {
       this.$refs.loginForm.validate(async isOK => {
+        // debugger
         if (isOK) {
           // 表示校验通过
           this.loading = true
           try {
             await this.$store.dispatch('user/login',this.loginForm)
-            // await this['user/login'](this.loginForm)
-            console.log("token", this.$store.getters.token.token);
-            // 只要进行到这个位置 说明登录成功了 跳到主页
+            const userInfo = await this.$store.dispatch('user/getUserInfo')
+            console.log("!!!!!!!!", userInfo);
+            this.$store.commit('permission/setRole', userInfo.role)
             this.$router.push('/')
-            console.log();
-            const userInfo = this.$store.dispatch('user/getUserInfo')
-            console.log(userInfo)
+            console.log('++++++++++++', userInfo.role)
+            this.$store.commit('user/setUserInfo', userInfo)
+            sessionStorage.setItem('userId', userInfo.userId)
           } catch (error) {
             this.$message(error)
           } finally {

@@ -1,18 +1,16 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
   <div class="goTest-container">
-    <PublishTest ref="publish"/>
     <ModifyExam ref="modify"/>
     <TestInfo @show="show" @showDialog="showDialog" class="testinfo"/>
   </div>
 </template>
 
 <script>
-import PublishTest from './components/publish-test.vue'
 import ModifyExam from './components/modify-exam.vue';
 import TestInfo from './components/test-info.vue'
 export default {
-  components: { TestInfo, ModifyExam , PublishTest},
+  components: { TestInfo, ModifyExam },
   data() {
     return {
     }
